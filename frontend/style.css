@@ -1272,7 +1272,7 @@ body.gallery-page {
       rgba(9, 9, 13, 0.55) 42%,
       var(--bg-primary) 74%
     ),
-    url("images/gallery-bg.webp");
+    url("/images/gallery-bg.webp");
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -1749,7 +1749,7 @@ body.projects-page {
       rgba(9, 9, 13, 0.6) 40%,
       var(--bg-primary) 78%
     ),
-    url("images/projects-bg.webp");
+    url("/images/projects-bg.webp");
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -1788,7 +1788,7 @@ body.posts-page {
       rgba(9, 9, 13, 0.3) 50%,
       rgba(9, 9, 13, 0.4) 100%
     ),
-    url("images/interactive-bg.webp");
+    url("/images/interactive-bg.webp");
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;

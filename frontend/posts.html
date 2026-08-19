@@ -60,12 +60,14 @@
   </div>
 </div>
 
-<!-- POSTS DATA -->
-<script type="module" src="/posts.js"></script>
-<script>
+<!-- Скрипт сделан модулем (type="module") для синхронной и правильной работы с бэкендом -->
+<script type="module">
 const searchInput = document.getElementById("searchInput");
 const feed = document.getElementById("postsFeed");
 const count = document.getElementById("postsCount");
+
+// Переменная объявлена глобально внутри этого модуля
+let posts = [];
 
 function formatDate(date, time){
   const d = new Date(date + "T" + time);
@@ -129,9 +131,23 @@ function render(){
   `).join("");
 }
 
+// Новая функция: скачивает посты из интернета и только потом запускает рендеринг
+async function loadPosts() {
+  try {
+    const response = await fetch('https://vercel.app');
+    if (!response.ok) throw new Error('Ошибка при ответе сервера');
+    posts = await response.json();
+    render(); // Перерисовываем страницу, когда данные пришли
+  } catch (error) {
+    console.error('Не удалось загрузить посты:', error);
+    feed.innerHTML = `<div style="text-align:center;color:red;margin-top:30px">Ошибка загрузки постов с бэкенда</div>`;
+  }
+}
+
 searchInput.addEventListener("input", render);
 
-render();
+// Запуск скачивания данных при открытии страницы
+loadPosts();
 
 // === LIGHTBOX ДЛЯ ФОТО В ПОСТАХ ===
 const lightbox = document.getElementById('lightbox');
@@ -168,7 +184,7 @@ lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLigh
 closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

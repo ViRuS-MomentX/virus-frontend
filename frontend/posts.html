@@ -132,8 +132,10 @@ function render(){
 }
 
 // Новая функция: скачивает посты из интернета и только потом запускает рендеринг
+// Новая функция: скачивает посты из интернета и только потом запускает рендеринг
 async function loadPosts() {
   try {
+    // Вставляем правильную ссылку на ваш реальный бэкенд
     const response = await fetch('https://vercel.app');
     if (!response.ok) throw new Error('Ошибка при ответе сервера');
     posts = await response.json();
@@ -143,6 +145,7 @@ async function loadPosts() {
     feed.innerHTML = `<div style="text-align:center;color:red;margin-top:30px">Ошибка загрузки постов с бэкенда</div>`;
   }
 }
+
 
 searchInput.addEventListener("input", render);
 

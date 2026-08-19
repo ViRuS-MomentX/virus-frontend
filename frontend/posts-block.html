@@ -1,0 +1,95 @@
+<!-- ====== БЛОК ПОСТОВ (вставить вместо текущего "Постов: 0") ====== -->
+
+<style>
+  .posts-toolbar{
+    display:flex; gap:8px; flex-wrap:wrap;
+    justify-content:center; margin:16px 0 24px;
+  }
+  .posts-toolbar button{
+    background:#1c1c1c; color:#ddd; border:1px solid #333;
+    padding:6px 14px; border-radius:20px; cursor:pointer;
+    font-size:14px; transition:.2s;
+  }
+  .posts-toolbar button:hover{ background:#2a2a2a; }
+  .posts-toolbar button.active{ background:#4a4af0; color:#fff; border-color:#4a4af0; }
+
+  .posts-count{ text-align:center; opacity:.7; margin-bottom:8px; }
+
+  .post-card{
+    max-width:640px; margin:0 auto 18px; padding:16px 20px;
+    background:#161616; border:1px solid #2a2a2a; border-radius:14px;
+    text-align:left;
+  }
+  .post-card h3{ margin:0 0 4px; font-size:18px; }
+  .post-meta{ font-size:12px; opacity:.6; margin-bottom:10px; }
+  .post-tag{
+    display:inline-block; font-size:11px; padding:2px 8px;
+    border-radius:10px; background:#2b2b40; color:#9fa8ff; margin-right:6px;
+  }
+  .post-body{ font-size:15px; line-height:1.5; white-space:pre-wrap; }
+  .post-empty{ text-align:center; opacity:.6; margin-top:30px; }
+</style>
+
+<div class="posts-toolbar" id="postsToolbar"></div>
+<div class="posts-count" id="postsCount"></div>
+<div id="postsFeed"></div>
+
+<script>
+  // === Данные постов: добавляешь новый объект сюда — он сам появится на сайте ===
+  const POSTS = [
+    {
+      title: "Запуск интерактива",
+      date: "2026-06-24",
+      tag: "новость",
+      body: "Раздел заработал. Теперь сюда можно добавлять чэнджлоги, мысли и новости одним объектом в массиве POSTS."
+    },
+    // { title: "...", date: "2026-06-25", tag: "чэнджлог", body: "..." },
+  ];
+
+  const TAGS = ["все", ...new Set(POSTS.map(p => p.tag))];
+  let activeTag = "все";
+
+  function formatDate(iso){
+    const d = new Date(iso);
+    return d.toLocaleDateString("ru-RU", { day:"2-digit", month:"long", year:"numeric" });
+  }
+
+  function renderToolbar(){
+    const el = document.getElementById("postsToolbar");
+    el.innerHTML = "";
+    TAGS.forEach(tag => {
+      const btn = document.createElement("button");
+      btn.textContent = tag;
+      if (tag === activeTag) btn.classList.add("active");
+      btn.onclick = () => { activeTag = tag; render(); };
+      el.appendChild(btn);
+    });
+  }
+
+  function render(){
+    renderToolbar();
+    const list = activeTag === "все" ? POSTS : POSTS.filter(p => p.tag === activeTag);
+    const feed = document.getElementById("postsFeed");
+    document.getElementById("postsCount").textContent = `Постов: ${POSTS.length}`;
+
+    if (!list.length){
+      feed.innerHTML = `<div class="post-empty">Здесь пока пусто</div>`;
+      return;
+    }
+
+    feed.innerHTML = list
+      .slice()
+      .sort((a,b) => new Date(b.date) - new Date(a.date))
+      .map(p => `
+        <div class="post-card">
+          <span class="post-tag">${p.tag}</span>
+          <h3>${p.title}</h3>
+          <div class="post-meta">${formatDate(p.date)}</div>
+          <div class="post-body">${p.body}</div>
+        </div>
+      `).join("");
+  }
+
+  render();
+</script>
+<!-- ====== КОНЕЦ БЛОКА ====== -->

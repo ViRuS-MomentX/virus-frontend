@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Проекты — Моя страничка</title>
+    <meta name="description" content="Мои проекты: Discord-бот, Telegram-бот и Minecraft-сервер Squad World.">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="projects-page">
+
+<!-- ═══ TOP BAR ═══ -->
+<div class="topbar">
+    <div class="wrapper">
+        <nav class="topbar-nav">
+            <a href="index.html">главная</a>
+            <a href="gallery.html">галерея</a>
+            <a href="projects.html" class="on">проекты</a>
+            <a href="posts.html">интерактив</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ═══ PROJECTS ═══ -->
+<div class="page-panel">
+
+<div class="wrapper page-title">
+    <h1>Мои проекты</h1>
+    <p>Создам вам чудо за 100 рублей писать в тг</p>
+</div>
+
+<div class="wrapper">
+    <div class="projects-list">
+
+        <!-- ========================================= -->
+        <!-- ПРОЕКТ 1: ДИСКОРД БОТ (ЧАТ-БОТ) -->
+        <!-- ========================================= -->
+        <div class="project-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                <span style="font-size: 2.5rem;">🤖</span>
+                <h3 style="margin: 0;">Discord Чат-Бот</h3>
+                <span style="background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.8rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;">На заказ</span>
+                <span style="background: #2a2a2a; color: var(--text-muted); font-size: 0.6rem; font-weight: 500; padding: 0.2rem 0.8rem; border-radius: 100px; border: 1px solid var(--border-color);">⚠️ Не оплачен</span>
+            </div>
+
+            <p>
+                Бот был разработан на заказ для сервера <strong>ROBLOX SPACE</strong>
+                (<a href="https://discord.gg/3wUaCVxtMQ" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">discord.gg/3wUaCVxtMQ</a>).
+                Основная задача — автоматизация общения и модерации, чтобы участники могли
+                крутить казино (подкручено), а администрация — не сидеть 24/7 в чате (теперь сидят ещё больше).
+            </p>
+
+            <p style="margin-top: 0.8rem;">
+                Бот умеет обрабатывать команды, реагировать на ключевые слова, выдавать
+                готовые ответы и всё.
+            </p>
+
+            <p style="margin-top: 0.8rem; color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                🍜 За работу до сих пор не заплатили дошиком...
+            </p>
+
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <a href="https://discord.com/oauth2/authorize?client_id=1511291046938677248&permissions=8&integration_type=0&scope=bot+applications.commands" target="_blank" rel="noopener" class="cta p" style="padding: 0.5rem 1.2rem; font-size: 0.8rem;">
+                    🔗 Пригласить бота
+                </a>
+                <a href="https://discord.gg/3wUaCVxtMQ" target="_blank" rel="noopener" class="cta s" style="padding: 0.5rem 1.2rem; font-size: 0.8rem;">
+                    🚀 Перейти на сервер
+                </a>
+            </div>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- ПРОЕКТ 2: ТЕЛЕГРАМ БОТ ДЛЯ СЛЕЖКИ (FunStat) -->
+        <!-- ========================================= -->
+        <div class="project-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                <span style="font-size: 2.5rem;">🕵️</span>
+                <h3 style="margin: 0;">Telegram Бот — Virus Finder</h3>
+                <span style="background: #2a2a2a; color: var(--text-muted); font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.8rem; border-radius: 100px; border: 1px solid var(--border-color); text-transform: uppercase; letter-spacing: 0.05em;">ВИРУСЫЫЫ</span>
+            </div>
+
+            <p>
+                Бот для слежки в Telegram, созданный на базе <strong>funstat</strong> —
+                мощного OSINT-инструмента, который ежедневно анализирует миллионы групп
+                и собирает информацию о пользователях: интересы, активность, историю
+                переписок и многое другое.
+            </p>
+
+            <p style="margin-top: 0.8rem;">
+                <strong>Что такое funstat?</strong> Это аналитическая платформа, которая
+                позволяет «пробивать» пользователей по номеру телефона, email, ФИО и другим
+                данным. Она используется в OSINT-исследованиях, для проверки
+                контрагентов и даже в журналистских расследованиях. В открытом доступе
+                это один из самых передовых инструментов такого рода.
+            </p>
+
+            <p style="margin-top: 0.8rem;">
+                Это не просто игрушка — это полноценный инструмент для мониторинга
+                и анализа данных.
+            </p>
+
+            <div style="margin-top: 0.8rem; background: rgba(88, 101, 242, 0.06); border-radius: 12px; padding: 0.8rem 1.2rem; border: 1px solid rgba(88, 101, 242, 0.1);">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">🔗 Связаться с ботом:</span>
+                <a href="https://t.me/FuNny_bott_bot" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 1.05rem;">
+                    @FuNny_bott_bot
+                </a>
+                <span style="display: inline-block; margin-left: 0.6rem; background: var(--accent); color: #fff; font-size: 0.5rem; font-weight: 600; padding: 0.1rem 0.6rem; border-radius: 100px; vertical-align: middle;">В Telegram</span>
+            </div>
+
+            <p style="margin-top: 0.8rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.8rem;">
+                ⚠️ Бот используется исключительно в личных целях. Доступ к funstat —
+                закрытый.
+            </p>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- ПРОЕКТ 3: SQUAD WORLD (MINECRAFT-СЕРВЕР) -->
+        <!-- ========================================= -->
+        <div class="project-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                <img src="images/squadworld.png" alt="Squad World" width="56" height="56" loading="lazy" decoding="async" style="width: 3.5rem; height: 3.5rem; border-radius: 12px; flex-shrink: 0; object-fit: contain; background-color: #202020; padding: 4px;">
+
+                <h3 style="margin: 0;">Squad World</h3>
+                <span style="background: #4c9a6b; color: #fff; font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.8rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;">Minecraft</span>
+                <span style="background: #2a2a2a; color: var(--text-muted); font-size: 0.6rem; font-weight: 500; padding: 0.2rem 0.8rem; border-radius: 100px; border: 1px solid var(--border-color);">🚧 В РАЗРАБОТКЕ</span>
+            </div>
+
+            <p>
+                <strong>Squad World</strong> — ванильный Minecraft-сервер с самописными датапаками
+                и плагинами. Никаких читов и сторонних клиентов, ломающих механику — чистый
+                ванильный геймплей, дополненный кастомными фичами под задачи проекта.
+            </p>
+
+            <p style="margin-top: 0.8rem;">
+                Я разработчик, который генерирует идеи в дипсике и передаёт их разработчику, который реализует их через чат джпт
+            </p>
+            <p style="margin-top: 0.8rem;">
+                Сейчас всё на стадии разработки: пишутся плагины, тестируются датапаки,
+                собирается гравий для старта.
+            </p>
+
+            <p style="margin-top: 0.8rem; color: var(--text-muted); font-style: italic; border-left: 3px solid #4c9a6b; padding-left: 1rem;">
+                🌱 Заходи в Discord, если хочешь следить за проектом.
+            </p>
+
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <a href="https://discord.gg/NxeMW7zzTa" target="_blank" rel="noopener" class="cta p" style="padding: 0.5rem 1.2rem; font-size: 0.8rem; background: #4c9a6b; box-shadow: 0 4px 15px rgba(76, 154, 107, 0.3);">
+                    🚀 Перейти в Discord
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div><!-- /.page-panel -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="ft">
+    <div class="wrapper">
+        <div class="ft-l">
+            <div class="ft-d"></div> Моя страничка · <span id="year"></span>
+        </div>
+        <div class="ft-r">сделано с .html</div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Главная — Моя страничка</title>
+<meta name="description" content="Личная страничка Вируса: галерея скриншотов, проекты и новости.">
+<link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═════════ TOPBAR ═════════ -->
+<div class="topbar">
+  <div class="wrapper">
+    <nav class="topbar-nav">
+      <a href="index.html" class="on">главная</a>
+      <a href="gallery.html">галерея</a>
+      <a href="projects.html">проекты</a>
+      <a href="posts.html">интерактив</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ═════════ HERO ═════════ -->
+<section class="hero">
+  <div class="wrapper">
+    <div class="hero-grid">
+      <div class="hero-avatar">
+        <img src="images/филя.png" alt="Аватар" width="230" height="230" loading="eager" decoding="async">
+      </div>
+      <div class="hero-content">
+        <div class="hero-tag">идёт ремонт</div>
+        <h1>Это страничка <em>Вируса</em></h1>
+        <p class="hero-sub">
+          Живу как карты ляжут, играю в майн и пью милкшейк🥛.
+          А что мне ещё остаётся?
+        </p>
+        <div class="hero-socials">
+          <a href="https://t.me/IAmVirus" target="_blank" rel="noopener" class="social-icon social-telegram" aria-label="Telegram">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+          <a href="https://discord.com/users/573196687481372675" target="_blank" rel="noopener" class="social-icon social-discord" aria-label="Discord">
+            <i class="fab fa-discord"></i>
+          </a>
+          <a href="https://tiktok.com/@i...am_virus" target="_blank" rel="noopener" class="social-icon social-tiktok" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="https://github.com/virus-momentx/virus.github.io" target="_blank" rel="noopener" class="social-icon social-github" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="cta-row">
+          <a href="gallery.html" class="cta p">Посмотреть галерею →</a>
+          <a href="projects.html" class="cta s">Мои проекты</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ AI CREDITS ═════════ -->
+<section class="ai-marquee">
+  <div class="ai-title">Со страницей помогали:</div>
+  <div class="ai-track">
+    <div class="ai-chip"><i class="fas fa-robot"></i> ChatGPT</div>
+    <div class="ai-chip"><i class="fas fa-brain"></i> Claude</div>
+    <div class="ai-chip"><i class="fas fa-star"></i> Gemini</div>
+    <div class="ai-chip"><i class="fas fa-code"></i> GitHub Copilot</div>
+    <div class="ai-chip"><i class="fas fa-search"></i> Perplexity</div>
+    <div class="ai-chip"><i class="fas fa-image"></i> DALL·E</div>
+    <div class="ai-chip"><i class="fas fa-palette"></i> Midjourney</div>
+    <div class="ai-chip"><i class="fas fa-wind"></i> Mistral</div>
+    <div class="ai-chip"><i class="fas fa-microchip"></i> GigaChat</div>
+    <div class="ai-chip"><i class="fas fa-cloud"></i> ZorahM-GPT</div>
+    <!-- дубль для бесконечной анимации, aria-hidden — чтобы скринридер не читал дважды -->
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-robot"></i> ChatGPT</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-brain"></i> Claude</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-star"></i> Gemini</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-code"></i> GitHub Copilot</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-search"></i> Perplexity</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-image"></i> DALL·E</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-palette"></i> Midjourney</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-wind"></i> Mistral</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-microchip"></i> GigaChat</div>
+    <div class="ai-chip" aria-hidden="true"><i class="fas fa-cloud"></i> ZorahM-GPT</div>
+  </div>
+</section>
+
+<!-- ═════════ FOOTER ═════════ -->
+<footer class="ft">
+  <div class="wrapper">
+    <div class="ft-l">
+      <div class="ft-d"></div> Моя страничка · <span id="year"></span>
+    </div>
+    <div class="ft-r">сделано с .html</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

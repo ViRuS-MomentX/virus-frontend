@@ -14,8 +14,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <link rel="stylesheet" crossorigin href="/assets/style-_9n1BsL0.css">
+<!-- Путь изменен для корректной сборки в Vite -->
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -109,5 +109,9 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+
+<!-- Нативная аналитика Vercel без использования импортов пакетов Node.js -->
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

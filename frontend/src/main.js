@@ -3,6 +3,8 @@ import javascriptLogo from './assets/javascript.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { setupCounter } from './counter.js'
+// 1. Импортируем inject из базового пакета аналитики
+import { inject } from '@vercel/analytics'
 
 document.querySelector('#app').innerHTML = `
 <section id="center">
@@ -58,3 +60,6 @@ document.querySelector('#app').innerHTML = `
 `
 
 setupCounter(document.querySelector('#counter'))
+
+// 2. Активируем отслеживание просмотров страниц и посетителей
+inject()

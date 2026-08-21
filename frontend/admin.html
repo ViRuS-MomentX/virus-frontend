@@ -70,7 +70,7 @@
     <table>
       <thead>
         <tr>
-          <th>Время</th><th>Страна</th><th>Регион</th><th>Город</th>
+          <th>Время</th><th>IP</th><th>Страна</th><th>Регион</th><th>Город</th>
           <th>Устройство</th><th>ОС</th><th>Браузер</th><th>Страница</th>
         </tr>
       </thead>
@@ -96,6 +96,13 @@
       return div.innerHTML;
     }
 
+    function countryFlag(code) {
+      if (!code || code.length !== 2) return '';
+      var base = 127397;
+      var upper = code.toUpperCase();
+      return String.fromCodePoint(base + upper.charCodeAt(0), base + upper.charCodeAt(1));
+    }
+
     function renderVisits(visits) {
       var body = document.getElementById('visits-body');
       body.innerHTML = '';
@@ -103,7 +110,8 @@
         var tr = document.createElement('tr');
         tr.innerHTML =
           '<td>' + formatTime(v.visited_at) + '</td>' +
-          '<td>' + escapeHtml(v.country) + '</td>' +
+          '<td>' + escapeHtml(v.ip) + '</td>' +
+          '<td>' + countryFlag(v.country) + ' ' + escapeHtml(v.country) + '</td>' +
           '<td>' + escapeHtml(v.region) + '</td>' +
           '<td>' + escapeHtml(v.city) + '</td>' +
           '<td>' + escapeHtml(v.device) + '</td>' +

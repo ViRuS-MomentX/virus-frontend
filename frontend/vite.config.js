@@ -13,6 +13,7 @@ export default defineConfig({
         projects: resolve(__dirname, 'projects.html'),
         posts: resolve(__dirname, 'posts.html'),
         postsBlock: resolve(__dirname, 'posts-block.html'),
+        admin: resolve(__dirname, 'admin.html'),
       }
     }
   },

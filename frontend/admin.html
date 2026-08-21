@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Аналитика посещений</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      padding: 24px;
+    }
+    h1 { font-size: 20px; margin-bottom: 16px; }
+    #login-box {
+      max-width: 320px;
+      margin-top: 80px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    #login-box input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #c9d1d9;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    #login-box button, #refresh-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: none;
+      background: #238636;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #login-box button:hover, #refresh-btn:hover { background: #2ea043; }
+    #error-msg { color: #f85149; font-size: 13px; margin-top: 8px; min-height: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+    th { color: #8b949e; font-weight: 600; }
+    tr:hover { background: #161b22; }
+    #toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    #refresh-btn { width: auto; padding: 8px 16px; }
+    #hidden-content { display: none; }
+    #status { color: #8b949e; font-size: 13px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <div id="login-box">
+    <h1>🔒 Аналитика посещений</h1>
+    <input type="password" id="key-input" placeholder="Введите ключ доступа" />
+    <button onclick="login()">Войти</button>
+    <div id="error-msg"></div>
+  </div>
+  <div id="hidden-content">
+    <div id="toolbar">
+      <h1>Посещения сайта</h1>
+      <button id="refresh-btn" onclick="loadVisits()">Обновить</button>
+    </div>
+    <div id="status"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Время</th><th>Страна</th><th>Регион</th><th>Город</th>
+          <th>Устройство</th><th>ОС</th><th>Браузер</th><th>Страница</th>
+        </tr>
+      </thead>
+      <tbody id="visits-body"></tbody>
+    </table>
+  </div>
+  <script>
+    var BACKEND_URL = 'https://virus-backend-nine.vercel.app/api/analytics/visits';
+    var STORAGE_KEY = 'analytics_admin_key';
+
+    function formatTime(iso) {
+      var d = new Date(iso);
+      return d.toLocaleString('ru-RU', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+      });
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '—';
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function renderVisits(visits) {
+      var body = document.getElementById('visits-body');
+      body.innerHTML = '';
+      visits.forEach(function (v) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + formatTime(v.visited_at) + '</td>' +
+          '<td>' + escapeHtml(v.country) + '</td>' +
+          '<td>' + escapeHtml(v.region) + '</td>' +
+          '<td>' + escapeHtml(v.city) + '</td>' +
+          '<td>' + escapeHtml(v.device) + '</td>' +
+          '<td>' + escapeHtml(v.os) + '</td>' +
+          '<td>' + escapeHtml(v.browser) + '</td>' +
+          '<td>' + escapeHtml(v.page) + '</td>';
+        body.appendChild(tr);
+      });
+      document.getElementById('status').textContent = 'Всего записей: ' + visits.length;
+    }
+
+    function loadVisits() {
+      var key = sessionStorage.getItem(STORAGE_KEY);
+      if (!key) return;
+      document.getElementById('status').textContent = 'Загрузка...';
+      fetch(BACKEND_URL, { headers: { 'x-admin-key': key } })
+        .then(function (res) {
+          if (res.status === 401) {
+            sessionStorage.removeItem(STORAGE_KEY);
+            showLogin('Неверный ключ доступа');
+            throw new Error('unauthorized');
+          }
+          if (!res.ok) throw new Error('Ошибка сервера: ' + res.status);
+          return res.json();
+        })
+        .then(renderVisits)
+        .catch(function (err) {
+          if (err.message !== 'unauthorized') {
+            document.getElementById('status').textContent = 'Ошибка: ' + err.message;
+          }
+        });
+    }
+
+    function showLogin(errorText) {
+      document.getElementById('login-box').style.display = 'block';
+      document.getElementById('hidden-content').style.display = 'none';
+      document.getElementById('error-msg').textContent = errorText || '';
+    }
+
+    function showContent() {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('hidden-content').style.display = 'block';
+    }
+
+    function login() {
+      var key = document.getElementById('key-input').value.trim();
+      if (!key) return;
+      sessionStorage.setItem(STORAGE_KEY, key);
+      showContent();
+      loadVisits();
+    }
+
+    document.getElementById('key-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') login();
+    });
+
+    (function init() {
+      var savedKey = sessionStorage.getItem(STORAGE_KEY);
+      if (savedKey) { showContent(); loadVisits(); } else { showLogin(); }
+    })();
+  </script>
+</body>
+</html>

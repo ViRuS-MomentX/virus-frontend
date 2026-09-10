@@ -92,6 +92,10 @@ a:hover {
   border-top: none;
 }
 
+.panel .row:last-child {
+  padding-bottom: 0;
+}
+
 .row-key {
   font-size: 0.8rem;
   color: var(--fg-faint);
@@ -278,12 +282,153 @@ a:hover {
   font-feature-settings: 'zero' 1;
 }
 
-/* ── Сводка: она же навигация ── */
-.readout {
-  padding: 0 0 1rem;
+/* ── Две колонки под hero: сводка и боковые панели ── */
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 21rem;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.5rem 0 3rem;
 }
 
-.readout .row-val {
+.home-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.panel {
+  border: 1px solid var(--rule);
+  padding: 1.1rem 1.4rem 1.4rem;
+}
+
+.panel-title {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--fg-dim);
+  letter-spacing: 0.14em;
+  margin-bottom: 0.5rem;
+}
+
+.panel-more {
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--fg-faint);
+  border-bottom: 1px solid transparent;
+}
+
+.panel-more:hover {
+  color: var(--amber);
+  border-bottom-color: var(--amber);
+}
+
+/* ── Плитка соцсетей ── */
+.social-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.social-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border: 1px solid var(--rule);
+  background: var(--ink-2);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.social-tile svg {
+  width: 26px;
+  height: 26px;
+}
+
+.social-tile svg path {
+  fill: currentColor;
+}
+
+.social-tile:hover {
+  border-color: currentColor;
+  background: #1a222c;
+}
+
+/* фирменные цвета приглушены, чтобы не спорить с палитрой */
+.social-tile.is-tg { color: #4aa8dd; }
+.social-tile.is-dc { color: #6070e6; }
+.social-tile.is-tt { color: #d3d9df; }
+.social-tile.is-gh { color: #c2cad2; }
+
+/* ── Последние посты ── */
+.post-mini {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule-soft);
+  color: inherit;
+}
+
+.post-mini:first-child {
+  border-top: none;
+}
+
+.post-mini:hover .post-mini-title {
+  color: var(--amber);
+}
+
+.post-mini-thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  background: var(--ink-2);
+}
+
+.post-mini-thumb.is-empty {
+  display: block;
+}
+
+.post-mini-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.post-mini-title {
+  font-family: var(--cond);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.post-mini-date {
+  font-size: 0.72rem;
+  color: var(--fg-faint);
+  font-feature-settings: 'zero' 1;
+}
+
+.post-badge {
+  font-size: 0.66rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.post-badge.is-personal { color: var(--ok); }
+.post-badge.is-game { color: var(--steel); }
+.post-badge.is-ai { color: var(--amber); }
+.post-badge.is-note { color: var(--fg-faint); }
+
+.panel .row-val {
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -871,6 +1016,16 @@ mark {
   }
 }
 
+@media (max-width: 1000px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .social-tiles {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
 @media (max-width: 860px) {
   :root {
     --rail: 6.5rem;
@@ -909,8 +1064,16 @@ mark {
     gap: 0.5rem;
   }
 
-  .readout .row-val {
+  .panel .row-val {
     gap: 0.7rem;
+  }
+
+  .panel {
+    padding: 1rem 1rem 1.2rem;
+  }
+
+  .social-tiles {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .readout-go {

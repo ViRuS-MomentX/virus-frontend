@@ -131,6 +131,12 @@ img {
   display: none;
 }
 
+/* плашки под hero больше нет — контраст текста над сеткой держит тень */
+.hero-content h1,
+.hero-sub {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 230px 1fr;
@@ -138,12 +144,7 @@ img {
   align-items: center;
   position: relative;
   z-index: 1;
-  padding: 2.25rem;
-  border-radius: 32px;
-  background: rgba(10, 10, 18, 0.62);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(112, 104, 190, 0.18);
-  box-shadow: var(--shadow);
+  padding: 2.25rem 0;
   animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -1109,7 +1110,9 @@ mark {
   overflow: hidden;
   margin-top: 3rem;
   padding: 1.5rem 0;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(10, 10, 13, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
@@ -1159,8 +1162,8 @@ mark {
   gap: .6rem;
   padding: .85rem 1.25rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, .04);
-  border: 1px solid rgba(255, 255, 255, .08);
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .09);
   color: var(--text-primary);
   white-space: nowrap;
   transition: all .25s ease;
@@ -1191,7 +1194,9 @@ mark {
   padding: 2rem 0;
   border-top: 1px solid rgba(112, 104, 190, 0.16);
   margin-top: 2rem;
-  background: linear-gradient(180deg, rgba(112, 104, 190, 0.05), transparent);
+  background: rgba(10, 10, 13, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .ft .wrapper {
@@ -1919,5 +1924,55 @@ body.posts-page .page-panel .wrapper {
   body.projects-page,
   body.posts-page {
     background-attachment: scroll;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ГЛАВНАЯ: ТЕХНИЧЕСКАЯ СЕТКА НА ФОНЕ
+   Два уровня линий + виньетка по краям.
+   Статично, без анимации и без картинок.
+   ═══════════════════════════════════════════ */
+
+body.home-page::before {
+  display: block;
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* тайл 640x480: сплошная сетка 64x48, пунктир по середине ячеек,
+     яркие точки на пересечениях, кольца и редкие залитые ячейки */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1216 912'%3E%3Cg fill='%23ffffff' opacity='0.07'%3E%3Crect x='192' y='576' width='64' height='48'/%3E%3Crect x='832' y='192' width='64' height='48'/%3E%3Crect x='1152' y='624' width='64' height='48'/%3E%3Crect x='896' y='720' width='64' height='48'/%3E%3Crect x='0' y='672' width='64' height='48'/%3E%3Crect x='576' y='576' width='64' height='48'/%3E%3Crect x='576' y='192' width='64' height='48'/%3E%3Crect x='1088' y='864' width='64' height='48'/%3E%3Crect x='64' y='240' width='64' height='48'/%3E%3Crect x='512' y='48' width='64' height='48'/%3E%3Crect x='0' y='528' width='64' height='48'/%3E%3Crect x='704' y='480' width='64' height='48'/%3E%3Crect x='512' y='0' width='64' height='48'/%3E%3Crect x='1152' y='480' width='64' height='48'/%3E%3Crect x='512' y='864' width='64' height='48'/%3E%3Crect x='1152' y='816' width='64' height='48'/%3E%3Crect x='896' y='432' width='64' height='48'/%3E%3Crect x='512' y='240' width='64' height='48'/%3E%3Crect x='256' y='768' width='64' height='48'/%3E%3Crect x='256' y='192' width='64' height='48'/%3E%3Crect x='0' y='864' width='64' height='48'/%3E%3Crect x='896' y='480' width='64' height='48'/%3E%3Crect x='832' y='528' width='64' height='48'/%3E%3Crect x='640' y='48' width='64' height='48'/%3E%3Crect x='256' y='864' width='64' height='48'/%3E%3Crect x='704' y='672' width='64' height='48'/%3E%3Crect x='1024' y='672' width='64' height='48'/%3E%3Crect x='128' y='672' width='64' height='48'/%3E%3Crect x='384' y='96' width='64' height='48'/%3E%3Crect x='448' y='336' width='64' height='48'/%3E%3Crect x='0' y='384' width='64' height='48'/%3E%3Crect x='192' y='624' width='64' height='48'/%3E%3Crect x='192' y='384' width='64' height='48'/%3E%3Crect x='128' y='576' width='64' height='48'/%3E%3Crect x='1088' y='624' width='64' height='48'/%3E%3Crect x='0' y='96' width='64' height='48'/%3E%3Crect x='0' y='144' width='64' height='48'/%3E%3Crect x='384' y='480' width='64' height='48'/%3E%3Crect x='192' y='240' width='64' height='48'/%3E%3Crect x='256' y='48' width='64' height='48'/%3E%3Crect x='768' y='672' width='64' height='48'/%3E%3Crect x='192' y='192' width='64' height='48'/%3E%3Crect x='448' y='384' width='64' height='48'/%3E%3Crect x='704' y='336' width='64' height='48'/%3E%3Crect x='896' y='672' width='64' height='48'/%3E%3Crect x='192' y='432' width='64' height='48'/%3E%3Crect x='896' y='576' width='64' height='48'/%3E%3Crect x='384' y='336' width='64' height='48'/%3E%3Crect x='320' y='864' width='64' height='48'/%3E%3Crect x='384' y='192' width='64' height='48'/%3E%3Crect x='512' y='480' width='64' height='48'/%3E%3Crect x='128' y='624' width='64' height='48'/%3E%3Crect x='960' y='480' width='64' height='48'/%3E%3Crect x='512' y='720' width='64' height='48'/%3E%3C/g%3E%3Cg stroke='%23ffffff' fill='none' stroke-width='1'%3E%3Cpath opacity='0.22' d='M0 0V912M64 0V912M128 0V912M192 0V912M256 0V912M320 0V912M384 0V912M448 0V912M512 0V912M576 0V912M640 0V912M704 0V912M768 0V912M832 0V912M896 0V912M960 0V912M1024 0V912M1088 0V912M1152 0V912M0 0H1216M0 48H1216M0 96H1216M0 144H1216M0 192H1216M0 240H1216M0 288H1216M0 336H1216M0 384H1216M0 432H1216M0 480H1216M0 528H1216M0 576H1216M0 624H1216M0 672H1216M0 720H1216M0 768H1216M0 816H1216M0 864H1216'/%3E%3Cpath opacity='0.17' stroke-dasharray='2 2' d='M32 0V912M96 0V912M160 0V912M224 0V912M288 0V912M352 0V912M416 0V912M480 0V912M544 0V912M608 0V912M672 0V912M736 0V912M800 0V912M864 0V912M928 0V912M992 0V912M1056 0V912M1120 0V912M1184 0V912M0 24H1216M0 72H1216M0 120H1216M0 168H1216M0 216H1216M0 264H1216M0 312H1216M0 360H1216M0 408H1216M0 456H1216M0 504H1216M0 552H1216M0 600H1216M0 648H1216M0 696H1216M0 744H1216M0 792H1216M0 840H1216M0 888H1216'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='0.8'%3E%3Crect x='320' y='432' width='2' height='2'/%3E%3Crect x='448' y='96' width='2' height='2'/%3E%3Crect x='576' y='768' width='2' height='2'/%3E%3Crect x='320' y='144' width='2' height='2'/%3E%3Crect x='896' y='192' width='2' height='2'/%3E%3Crect x='1152' y='96' width='2' height='2'/%3E%3Crect x='1024' y='528' width='2' height='2'/%3E%3Crect x='576' y='240' width='2' height='2'/%3E%3Crect x='896' y='816' width='2' height='2'/%3E%3Crect x='320' y='576' width='2' height='2'/%3E%3Crect x='512' y='384' width='2' height='2'/%3E%3Crect x='832' y='528' width='2' height='2'/%3E%3Crect x='1024' y='96' width='2' height='2'/%3E%3Crect x='512' y='144' width='2' height='2'/%3E%3Crect x='960' y='576' width='2' height='2'/%3E%3Crect x='512' y='768' width='2' height='2'/%3E%3Crect x='704' y='0' width='2' height='2'/%3E%3Crect x='64' y='864' width='2' height='2'/%3E%3Crect x='1024' y='720' width='2' height='2'/%3E%3Crect x='1152' y='144' width='2' height='2'/%3E%3Crect x='640' y='288' width='2' height='2'/%3E%3Crect x='1024' y='576' width='2' height='2'/%3E%3Crect x='384' y='624' width='2' height='2'/%3E%3Crect x='896' y='672' width='2' height='2'/%3E%3Crect x='768' y='192' width='2' height='2'/%3E%3Crect x='448' y='480' width='2' height='2'/%3E%3Crect x='1024' y='672' width='2' height='2'/%3E%3Crect x='128' y='48' width='2' height='2'/%3E%3Crect x='640' y='816' width='2' height='2'/%3E%3Crect x='0' y='288' width='2' height='2'/%3E%3Crect x='448' y='48' width='2' height='2'/%3E%3Crect x='64' y='288' width='2' height='2'/%3E%3Crect x='384' y='720' width='2' height='2'/%3E%3Crect x='64' y='96' width='2' height='2'/%3E%3Crect x='128' y='624' width='2' height='2'/%3E%3Crect x='1152' y='48' width='2' height='2'/%3E%3Crect x='320' y='624' width='2' height='2'/%3E%3Crect x='832' y='144' width='2' height='2'/%3E%3Crect x='256' y='240' width='2' height='2'/%3E%3Crect x='960' y='720' width='2' height='2'/%3E%3Crect x='512' y='576' width='2' height='2'/%3E%3Crect x='64' y='576' width='2' height='2'/%3E%3Crect x='1024' y='384' width='2' height='2'/%3E%3Crect x='448' y='336' width='2' height='2'/%3E%3Crect x='64' y='144' width='2' height='2'/%3E%3Crect x='448' y='240' width='2' height='2'/%3E%3Crect x='64' y='624' width='2' height='2'/%3E%3Crect x='1152' y='480' width='2' height='2'/%3E%3Crect x='1024' y='336' width='2' height='2'/%3E%3Crect x='576' y='48' width='2' height='2'/%3E%3Crect x='448' y='720' width='2' height='2'/%3E%3Crect x='704' y='624' width='2' height='2'/%3E%3Crect x='320' y='768' width='2' height='2'/%3E%3Crect x='896' y='240' width='2' height='2'/%3E%3Crect x='256' y='528' width='2' height='2'/%3E%3Crect x='1152' y='288' width='2' height='2'/%3E%3Crect x='0' y='624' width='2' height='2'/%3E%3Crect x='1152' y='432' width='2' height='2'/%3E%3Crect x='1088' y='864' width='2' height='2'/%3E%3Crect x='384' y='576' width='2' height='2'/%3E%3Crect x='704' y='672' width='2' height='2'/%3E%3Crect x='704' y='432' width='2' height='2'/%3E%3Crect x='1152' y='336' width='2' height='2'/%3E%3Crect x='384' y='144' width='2' height='2'/%3E%3Crect x='1024' y='624' width='2' height='2'/%3E%3Crect x='128' y='672' width='2' height='2'/%3E%3Crect x='960' y='0' width='2' height='2'/%3E%3Crect x='704' y='576' width='2' height='2'/%3E%3Crect x='128' y='288' width='2' height='2'/%3E%3Crect x='832' y='624' width='2' height='2'/%3E%3Crect x='768' y='528' width='2' height='2'/%3E%3Crect x='1152' y='384' width='2' height='2'/%3E%3Crect x='448' y='672' width='2' height='2'/%3E%3Crect x='1088' y='96' width='2' height='2'/%3E%3Crect x='128' y='144' width='2' height='2'/%3E%3Crect x='960' y='240' width='2' height='2'/%3E%3Crect x='128' y='432' width='2' height='2'/%3E%3Crect x='768' y='48' width='2' height='2'/%3E%3C/g%3E%3Cg stroke='%23ffffff' fill='none' stroke-width='1' opacity='0.4'%3E%3Ccircle cx='980' cy='152' r='5'/%3E%3Ccircle cx='200' cy='312' r='3'/%3E%3Ccircle cx='862' cy='381' r='8'/%3E%3Ccircle cx='772' cy='330' r='6'/%3E%3Ccircle cx='244' cy='724' r='3'/%3E%3Ccircle cx='705' cy='297' r='8'/%3E%3Ccircle cx='1189' cy='474' r='6'/%3E%3Ccircle cx='132' cy='652' r='4'/%3E%3Ccircle cx='265' cy='86' r='5'/%3E%3Ccircle cx='1080' cy='628' r='5'/%3E%3Ccircle cx='298' cy='800' r='3'/%3E%3Ccircle cx='834' cy='119' r='3'/%3E%3Ccircle cx='1210' cy='324' r='4'/%3E%3Ccircle cx='15' cy='646' r='6'/%3E%3Ccircle cx='152' cy='414' r='3'/%3E%3Ccircle cx='53' cy='816' r='6'/%3E%3Ccircle cx='311' cy='203' r='5'/%3E%3Ccircle cx='1064' cy='87' r='8'/%3E%3Ccircle cx='1150' cy='636' r='8'/%3E%3Ccircle cx='810' cy='371' r='6'/%3E%3Ccircle cx='343' cy='795' r='6'/%3E%3Ccircle cx='256' cy='181' r='3'/%3E%3Ccircle cx='435' cy='136' r='5'/%3E%3Ccircle cx='879' cy='97' r='5'/%3E%3Ccircle cx='1039' cy='816' r='4'/%3E%3Ccircle cx='1056' cy='320' r='6'/%3E%3Ccircle cx='253' cy='588' r='6'/%3E%3Ccircle cx='898' cy='549' r='5'/%3E%3Ccircle cx='281' cy='128' r='6'/%3E%3Ccircle cx='904' cy='786' r='5'/%3E%3Ccircle cx='789' cy='494' r='8'/%3E%3Ccircle cx='381' cy='316' r='3'/%3E%3Ccircle cx='1143' cy='384' r='8'/%3E%3Ccircle cx='197' cy='293' r='3'/%3E%3Ccircle cx='1135' cy='718' r='8'/%3E%3Ccircle cx='968' cy='463' r='8'/%3E%3Ccircle cx='240' cy='182' r='4'/%3E%3Ccircle cx='596' cy='365' r='5'/%3E%3Ccircle cx='748' cy='174' r='3'/%3E%3Ccircle cx='1166' cy='201' r='4'/%3E%3Ccircle cx='1059' cy='276' r='5'/%3E%3Ccircle cx='175' cy='95' r='4'/%3E%3Ccircle cx='107' cy='157' r='6'/%3E%3Ccircle cx='1106' cy='445' r='3'/%3E%3Ccircle cx='1128' cy='158' r='6'/%3E%3Ccircle cx='397' cy='454' r='8'/%3E%3Ccircle cx='615' cy='458' r='6'/%3E%3Ccircle cx='255' cy='175' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 1216px 912px;
+  background-repeat: repeat;
+  /* сетка мягко гаснет книзу */
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+}
+
+/* мягкая виньетка поверх сетки */
+body.home-page::after {
+  display: block;
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 85% 75% at 50% 40%,
+    transparent 65%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+}
+
+/* бегущая строка рисуется после виньетки, а не под ней */
+.ai-marquee {
+  z-index: 1;
+}
+
+/* на узких экранах тайл мельче — иначе рисунок не помещается в ширину */
+@media (max-width: 768px) {
+  body.home-page::before {
+    background-size: 608px 456px;
   }
 }

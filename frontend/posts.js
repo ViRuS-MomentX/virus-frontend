@@ -153,7 +153,8 @@ const count = document.getElementById("postsCount");
 
 function formatDate(date, time){
   const d = new Date(date + "T" + time);
-  return d.toLocaleDateString("ru-RU",{day:"2-digit",month:"long",year:"numeric"}) + " · " + time;
+  const day = d.toLocaleDateString("ru-RU",{day:"2-digit",month:"2-digit",year:"numeric"});
+  return `${day}<br>${time}`;
 }
 
 function norm(str){
@@ -193,20 +194,22 @@ function render(){
   count.textContent = `Постов: ${list.length}`;
 
   if(list.length === 0){
-    feed.innerHTML = `<div style="text-align:center;opacity:.6;margin-top:30px">Ничего не найдено</div>`;
+    feed.innerHTML = `<div class="post-empty">Ничего не найдено</div>`;
     return;
   }
 
   feed.innerHTML = list.map(p => `
-    <div class="post-card">
-      ${p.tag ? `<div class="post-tag">${highlight(p.tag, rawQuery)}</div>` : ""}
-      <h3 class="post-title">${highlight(p.title, rawQuery)}</h3>
-      ${p.image ? `<div class="post-image-wrap"><img class="post-image" src="${p.image}" loading="lazy" decoding="async" alt="${escapeHtml(p.title)}"><div class="post-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>` : ""}
-      <div class="post-body">${highlight(p.text || "", rawQuery)}</div>
+    <article class="post-card">
       <div class="post-meta">
-        <span class="post-date-time"><i class="fa-regular fa-clock"></i>${formatDate(p.date,p.time)}</span>
+        <span class="post-date-time">${formatDate(p.date,p.time)}</span>
       </div>
-    </div>
+      <div>
+        ${p.tag ? `<div class="post-tag">${highlight(p.tag, rawQuery)}</div>` : ""}
+        <h3 class="post-title">${highlight(p.title, rawQuery)}</h3>
+        ${p.image ? `<div class="post-image-wrap"><img class="post-image" src="${p.image}" loading="lazy" decoding="async" alt="${escapeHtml(p.title)}"></div>` : ""}
+        <div class="post-body">${highlight(p.text || "", rawQuery)}</div>
+      </div>
+    </article>
   `).join("");
 }
 

@@ -26,6 +26,7 @@
 
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
 
   --rail: 8.5rem;
   --gutter: 2rem;
@@ -158,8 +159,56 @@ a:hover {
 
 /* ═══ ГЛАВНАЯ ═══ */
 .hero {
-  padding: 4.5rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+  padding: 7rem 0 5.5rem;
   border-bottom: 1px solid var(--rule);
+}
+
+/* ── Фон hero: статичная сетка тайлом + живой слой с кольцами ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1216 480'%3E%3Cg fill='%23ffffff' opacity='0.11'%3E%3Crect x='192' y='0' width='64' height='48'/%3E%3Crect x='384' y='192' width='64' height='48'/%3E%3Crect x='64' y='432' width='64' height='48'/%3E%3Crect x='256' y='48' width='64' height='48'/%3E%3Crect x='1088' y='144' width='64' height='48'/%3E%3Crect x='576' y='144' width='64' height='48'/%3E%3Crect x='1152' y='144' width='64' height='48'/%3E%3Crect x='512' y='384' width='64' height='48'/%3E%3Crect x='896' y='240' width='64' height='48'/%3E%3Crect x='384' y='240' width='64' height='48'/%3E%3Crect x='0' y='144' width='64' height='48'/%3E%3Crect x='128' y='144' width='64' height='48'/%3E%3Crect x='256' y='192' width='64' height='48'/%3E%3Crect x='256' y='336' width='64' height='48'/%3E%3Crect x='192' y='144' width='64' height='48'/%3E%3Crect x='640' y='48' width='64' height='48'/%3E%3Crect x='1024' y='0' width='64' height='48'/%3E%3Crect x='832' y='336' width='64' height='48'/%3E%3Crect x='1152' y='192' width='64' height='48'/%3E%3Crect x='832' y='96' width='64' height='48'/%3E%3Crect x='1088' y='384' width='64' height='48'/%3E%3Crect x='768' y='192' width='64' height='48'/%3E%3Crect x='1152' y='384' width='64' height='48'/%3E%3Crect x='896' y='432' width='64' height='48'/%3E%3Crect x='192' y='288' width='64' height='48'/%3E%3Crect x='1152' y='240' width='64' height='48'/%3E%3Crect x='448' y='0' width='64' height='48'/%3E%3Crect x='128' y='432' width='64' height='48'/%3E%3Crect x='320' y='288' width='64' height='48'/%3E%3Crect x='576' y='0' width='64' height='48'/%3E%3Crect x='704' y='48' width='64' height='48'/%3E%3Crect x='320' y='192' width='64' height='48'/%3E%3C/g%3E%3Cg stroke='%23ffffff' fill='none' stroke-width='1'%3E%3Cpath opacity='0.4' d='M0 0V480M64 0V480M128 0V480M192 0V480M256 0V480M320 0V480M384 0V480M448 0V480M512 0V480M576 0V480M640 0V480M704 0V480M768 0V480M832 0V480M896 0V480M960 0V480M1024 0V480M1088 0V480M1152 0V480M0 0H1216M0 48H1216M0 96H1216M0 144H1216M0 192H1216M0 240H1216M0 288H1216M0 336H1216M0 384H1216M0 432H1216'/%3E%3Cpath opacity='0.32' stroke-dasharray='2 2' d='M32 0V480M96 0V480M160 0V480M224 0V480M288 0V480M352 0V480M416 0V480M480 0V480M544 0V480M608 0V480M672 0V480M736 0V480M800 0V480M864 0V480M928 0V480M992 0V480M1056 0V480M1120 0V480M1184 0V480M0 24H1216M0 72H1216M0 120H1216M0 168H1216M0 216H1216M0 264H1216M0 312H1216M0 360H1216M0 408H1216M0 456H1216'/%3E%3Cpath opacity='0.55' d='M316 336h9M320 332v9M508 144h9M512 140v9M444 144h9M448 140v9M252 336h9M256 332v9M188 192h9M192 188v9M188 240h9M192 236v9M1148 432h9M1152 428v9M1084 384h9M1088 380v9M444 48h9M448 44v9M444 96h9M448 92v9M188 144h9M192 140v9M-4 432h9M0 428v9M380 144h9M384 140v9M380 0h9M384 -4v9M508 240h9M512 236v9M60 336h9M64 332v9'/%3E%3Cpath opacity='0.42' d='M1024 60h5M780 192v5M832 444h5M704 396h5M512 12h5M524 144v5M256 60h5M1164 384v5M64 252h5M844 96v5M844 48v5M1164 0v5M832 348h5M844 240v5M128 348h5M0 348h5M1024 252h5M576 204h5M64 108h5M1088 156h5M1088 108h5M332 96v5'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='0.95'%3E%3Crect x='768' y='288' width='2' height='2'/%3E%3Crect x='1088' y='96' width='2' height='2'/%3E%3Crect x='896' y='0' width='2' height='2'/%3E%3Crect x='768' y='144' width='2' height='2'/%3E%3Crect x='960' y='288' width='2' height='2'/%3E%3Crect x='768' y='432' width='2' height='2'/%3E%3Crect x='896' y='240' width='2' height='2'/%3E%3Crect x='1024' y='0' width='2' height='2'/%3E%3Crect x='256' y='144' width='2' height='2'/%3E%3Crect x='704' y='144' width='2' height='2'/%3E%3Crect x='1024' y='96' width='2' height='2'/%3E%3Crect x='960' y='96' width='2' height='2'/%3E%3Crect x='448' y='48' width='2' height='2'/%3E%3Crect x='512' y='96' width='2' height='2'/%3E%3Crect x='0' y='96' width='2' height='2'/%3E%3Crect x='64' y='240' width='2' height='2'/%3E%3Crect x='576' y='288' width='2' height='2'/%3E%3Crect x='1152' y='384' width='2' height='2'/%3E%3Crect x='384' y='288' width='2' height='2'/%3E%3Crect x='704' y='0' width='2' height='2'/%3E%3Crect x='320' y='240' width='2' height='2'/%3E%3Crect x='192' y='432' width='2' height='2'/%3E%3Crect x='704' y='336' width='2' height='2'/%3E%3Crect x='64' y='288' width='2' height='2'/%3E%3Crect x='768' y='384' width='2' height='2'/%3E%3Crect x='512' y='240' width='2' height='2'/%3E%3Crect x='384' y='48' width='2' height='2'/%3E%3Crect x='832' y='192' width='2' height='2'/%3E%3Crect x='768' y='48' width='2' height='2'/%3E%3Crect x='896' y='48' width='2' height='2'/%3E%3Crect x='960' y='240' width='2' height='2'/%3E%3Crect x='320' y='288' width='2' height='2'/%3E%3Crect x='896' y='144' width='2' height='2'/%3E%3Crect x='1152' y='192' width='2' height='2'/%3E%3Crect x='1088' y='48' width='2' height='2'/%3E%3Crect x='0' y='336' width='2' height='2'/%3E%3Crect x='576' y='384' width='2' height='2'/%3E%3Crect x='1088' y='0' width='2' height='2'/%3E%3Crect x='832' y='48' width='2' height='2'/%3E%3Crect x='896' y='336' width='2' height='2'/%3E%3Crect x='832' y='288' width='2' height='2'/%3E%3Crect x='320' y='432' width='2' height='2'/%3E%3Crect x='1024' y='144' width='2' height='2'/%3E%3Crect x='512' y='0' width='2' height='2'/%3E%3Crect x='192' y='0' width='2' height='2'/%3E%3Crect x='704' y='192' width='2' height='2'/%3E%3Crect x='832' y='144' width='2' height='2'/%3E%3Crect x='960' y='336' width='2' height='2'/%3E%3C/g%3E%3Cg fill='%23e2a03f' opacity='0.9'%3E%3Crect x='255' y='47' width='3' height='3'/%3E%3Crect x='895' y='191' width='3' height='3'/%3E%3Crect x='511' y='335' width='3' height='3'/%3E%3Crect x='319' y='335' width='3' height='3'/%3E%3Crect x='703' y='239' width='3' height='3'/%3E%3Crect x='447' y='47' width='3' height='3'/%3E%3Crect x='127' y='335' width='3' height='3'/%3E%3Crect x='447' y='335' width='3' height='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 1216px 480px;
+  background-repeat: repeat;
+  /* книзу гаснет, чтобы не спорить с линиями сводки */
+  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+}
+
+.hero-rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1;
+}
+
+.ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ringPulse var(--dur, 8s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+@keyframes ringPulse {
+  from {
+    transform: scale(0.45);
+    opacity: 0.25;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+}
+
+.hero .wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-grid {
@@ -172,7 +221,9 @@ a:hover {
 .hero-avatar {
   width: 168px;
   height: 168px;
+  background: var(--ink);
   border: 1px solid var(--rule);
+  box-shadow: 0 0 0 6px var(--ink);
   overflow: hidden;
   filter: saturate(0.85);
 }
@@ -184,6 +235,7 @@ a:hover {
 }
 
 .hero-name {
+  text-shadow: 0 2px 14px rgba(13, 17, 23, 0.95), 0 0 3px rgba(13, 17, 23, 0.9);
   font-size: clamp(3.2rem, 11vw, 6rem);
   font-weight: 700;
   line-height: 0.9;
@@ -211,9 +263,19 @@ a:hover {
 .hero-sub {
   font-family: var(--sans);
   font-size: 1.05rem;
-  color: var(--fg-dim);
+  color: #aeb7c0;
+  text-shadow: 0 1px 10px rgba(13, 17, 23, 0.98), 0 0 4px rgba(13, 17, 23, 0.95);
   max-width: 46ch;
   margin-top: 1.1rem;
+}
+
+/* числа набираем с перечёркнутым нулём */
+.readout-num,
+.stat-num,
+.head-count,
+.post-meta,
+.hero-name {
+  font-feature-settings: 'zero' 1;
 }
 
 /* ── Сводка: она же навигация ── */
@@ -281,6 +343,18 @@ a:hover {
   border-color: var(--amber);
 }
 
+.links .ic {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  fill: currentColor;
+  opacity: 0.75;
+}
+
+.links a:hover .ic {
+  opacity: 1;
+}
+
 /* ── Кто помогал ── */
 .credits {
   display: flex;
@@ -310,10 +384,11 @@ a:hover {
 }
 
 .page-title h1 {
-  font-size: 2.35rem;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
+  font-family: var(--cond);
+  font-size: 2.9rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
 .page-title p {
@@ -632,7 +707,8 @@ mark {
 }
 
 .project-card h3 {
-  font-size: 1.35rem;
+  font-family: var(--cond);
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 0.7rem;
@@ -721,7 +797,8 @@ mark {
 }
 
 .post-title {
-  font-size: 1.25rem;
+  font-family: var(--cond);
+  font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 0.7rem;
@@ -868,7 +945,8 @@ mark {
     scroll-behavior: auto;
   }
 
-  .hero-name::after {
+  .hero-name::after,
+  .ring {
     animation: none;
   }
 

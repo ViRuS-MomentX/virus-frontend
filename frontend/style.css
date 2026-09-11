@@ -352,7 +352,6 @@ a:hover {
 /* ── Полоса с цитатой: единственное крупное место после имени ── */
 .quote-band {
   border-bottom: 1px solid var(--rule);
-  background: var(--ink-2);
 }
 
 .quote-band-inner {
@@ -1351,10 +1350,6 @@ mark {
   opacity: 0.5;
 }
 
-.marquee-item.is-label {
-  color: var(--fg-faint);
-  letter-spacing: 0.1em;
-}
 
 /* ═══ ПОДВАЛ ═══ */
 .ft {

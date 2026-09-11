@@ -156,6 +156,21 @@ function renderStats(){
   `;
 }
 
+function escapeHtml(str){
+  return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function escapeRegExp(str){
+  return (str || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// подсвечиваем совпадения так же, как в ленте постов
+function highlight(text, query){
+  const safe = escapeHtml(text);
+  if(!query) return safe;
+  return safe.replace(new RegExp(escapeRegExp(query), "gi"), match => `<mark>${match}</mark>`);
+}
+
 function getVisible(){
   let query = searchInput.value.toLowerCase().trim();
 
@@ -168,6 +183,7 @@ function getVisible(){
 
 function render(){
   let items = getVisible();
+  const rawQuery = searchInput.value.trim();
   const fragment = document.createDocumentFragment();
 
   items.forEach((item, index)=>{
@@ -180,11 +196,11 @@ function render(){
 
     card.innerHTML = `
       <div class="gallery-thumb">
-        <img src="${item.name}" loading="lazy" decoding="async" alt="${gameLabels[item.game]}: ${item.comment}">
+        <img src="${item.name}" loading="lazy" decoding="async" alt="${escapeHtml(gameLabels[item.game] + ": " + item.comment)}">
       </div>
       <div class="desc">
         <span class="card-tag">${gameLabels[item.game]}</span>
-        <span>${item.comment}</span>
+        <span>${highlight(item.comment, rawQuery)}</span>
       </div>
     `;
 

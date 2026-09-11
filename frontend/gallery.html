@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&text=IRL&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body class="gallery-page">
@@ -30,41 +31,42 @@
 </div>
 
 <div class="page-head">
-  <div class="wrapper">
+  <div class="wrapper page-head-top">
     <div class="page-title">
       <h1>Галерея</h1>
       <p>Скриншоты с серверов и из жизни. Приглядись к каждому — в подписи обычно есть послание.</p>
     </div>
     <div class="head-count" id="photoCounter">Показано: 0 / 0</div>
   </div>
-</div>
 
-<div class="wrapper">
-  <div class="controls">
+  <div class="wrapper">
+    <div class="controls">
 
     <div class="row">
       <div class="row-key">игра</div>
       <div class="row-val">
         <div class="game-filters">
-          <button class="game-filter active" data-game="">
-            <img src="images/all.png" alt="" width="16" height="16" loading="eager">все
+          <button class="game-filter active" data-game="" data-label="Все игры" aria-label="Все игры">
+            <img src="images/all.png" alt="" width="22" height="22" loading="eager">
           </button>
-          <button class="game-filter" data-game="minecraft">
-            <img src="images/minecraft.png" alt="" width="16" height="16" loading="eager">майнкрафт
+          <button class="game-filter" data-game="minecraft" data-label="Minecraft" aria-label="Minecraft">
+            <img src="images/minecraft.png" alt="" width="22" height="22" loading="eager">
           </button>
-          <button class="game-filter" data-game="roblox">
-            <img src="images/roblox.png" alt="" width="16" height="16" loading="eager">роблокс
+          <button class="game-filter" data-game="roblox" data-label="Roblox" aria-label="Roblox">
+            <img src="images/roblox.png" alt="" width="22" height="22" loading="eager">
           </button>
-          <button class="game-filter" data-game="phasmo">
-            <img src="images/phasmo.ico" alt="" width="16" height="16" loading="eager">фазмофобия
+          <button class="game-filter" data-game="phasmo" data-label="Phasmophobia" aria-label="Phasmophobia">
+            <img src="images/phasmo.ico" alt="" width="22" height="22" loading="eager">
           </button>
-          <button class="game-filter" data-game="rivals">
-            <img src="images/marvel.png" alt="" width="16" height="16" loading="eager">ривалс
+          <button class="game-filter" data-game="rivals" data-label="Marvel Rivals" aria-label="Marvel Rivals">
+            <img src="images/marvel.png" alt="" width="22" height="22" loading="eager">
           </button>
-          <button class="game-filter" data-game="dbd">
-            <img src="images/dbd.jpg" alt="" width="16" height="16" loading="eager">dbd
+          <button class="game-filter" data-game="dbd" data-label="Dead by Daylight" aria-label="Dead by Daylight">
+            <img src="images/dbd.jpg" alt="" width="22" height="22" loading="eager">
           </button>
-          <button class="game-filter" data-game="irl">из жизни</button>
+          <button class="game-filter is-irl" data-game="irl" data-label="Из реальной жизни" aria-label="Из реальной жизни">
+            <span aria-hidden="true">IRL</span>
+          </button>
         </div>
       </div>
     </div>
@@ -79,15 +81,18 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="row-key">сводка</div>
-      <div class="row-val">
-        <div class="gallery-stats" id="galleryStats"></div>
+      <div class="row">
+        <div class="row-key">сводка</div>
+        <div class="row-val">
+          <div class="gallery-stats" id="galleryStats"></div>
+        </div>
       </div>
+
     </div>
-
   </div>
+</div>
 
+<div class="wrapper">
   <div class="gallery-grid" id="galleryGrid"></div>
 </div>
 
@@ -165,10 +170,13 @@ function render(){
   let items = getVisible();
   const fragment = document.createDocumentFragment();
 
-  items.forEach((item)=>{
+  items.forEach((item, index)=>{
     let card = document.createElement("div");
     card.className = "gallery-item";
     card.dataset.comment = item.comment;
+    // индекс нужен для ступенчатого появления после перемешивания;
+    // выше 28 задержка не растёт — дальше карточки всё равно за экраном
+    card.style.setProperty("--i", Math.min(index, 28));
 
     card.innerHTML = `
       <div class="gallery-thumb">
@@ -206,9 +214,22 @@ document.querySelectorAll(".game-filter").forEach(button=>{
   };
 });
 
-document.getElementById("shuffleButton").onclick = ()=>{
-  galleryData.sort(()=>Math.random()-0.5);
-  render();
+const shuffleButton = document.getElementById("shuffleButton");
+
+shuffleButton.onclick = ()=>{
+  if (shuffleButton.disabled) return;
+  shuffleButton.disabled = true;
+
+  // сначала карточки разлетаются, и только потом меняется порядок,
+  // иначе перестановка происходит мгновенно и её не видно
+  grid.classList.add("is-shuffling");
+
+  setTimeout(()=>{
+    galleryData.sort(()=>Math.random()-0.5);
+    render();
+    grid.classList.remove("is-shuffling");
+    shuffleButton.disabled = false;
+  }, 260);
 };
 
 const lightbox = document.getElementById("lightbox");

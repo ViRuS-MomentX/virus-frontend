@@ -535,6 +535,11 @@ a:hover {
 
 /* ═══ ЗАГОЛОВОК СТРАНИЦЫ ═══ */
 .page-head {
+  /* всплывающие подписи фильтров — абсолютные псевдоэлементы: у крайних
+     кнопок они выходили за экран и давали горизонтальную прокрутку.
+     .page-head тянется во всю ширину, поэтому clip режет только то,
+     что и правда за краем окна. */
+  overflow-x: clip;
   border-bottom: 1px solid var(--rule);
   background-color: var(--ink);
   background-size: cover;
@@ -542,7 +547,7 @@ a:hover {
   background-repeat: no-repeat;
 }
 
-.page-head .wrapper {
+.page-head-top {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -550,6 +555,17 @@ a:hover {
   flex-wrap: wrap;
   padding-top: 3rem;
   padding-bottom: 2.25rem;
+}
+
+/* в галерее панель управления лежит внутри шапки — снимаем её нижнюю
+   черту и отступ, границу рисует сама .page-head */
+.page-head .controls {
+  border-bottom: none;
+  padding-bottom: 2rem;
+}
+
+.page-head .page-head-top {
+  padding-bottom: 1.5rem;
 }
 
 .page-title h1 {
@@ -606,24 +622,62 @@ body.posts-page .page-head {
 }
 
 .game-filter {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.7rem;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
   font-family: var(--mono);
   font-size: 0.82rem;
   color: var(--fg-dim);
   background: none;
   border: 1px solid var(--rule);
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
 .game-filter img {
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
   filter: saturate(0.7);
+}
+
+/* IRL набрано отдельным шрифтом — подтянуты только три этих глифа */
+.game-filter.is-irl span {
+  font-family: 'Syne', var(--cond);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+/* подпись игры всплывает при наведении и при фокусе с клавиатуры */
+.game-filter::after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.2rem);
+  padding: 0.2rem 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--fg);
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 5;
+}
+
+.game-filter:hover::after,
+.game-filter:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .game-filter:hover {
@@ -648,7 +702,7 @@ body.posts-page .page-head {
 }
 
 #searchInput {
-  flex: 1 1 18rem;
+  flex: 0 1 22rem;
   min-width: 0;
   padding: 0.5rem 0.75rem;
   font-family: var(--mono);
@@ -731,6 +785,33 @@ body.posts-page .page-head {
   display: flex;
   flex-direction: column;
   transition: background 0.15s ease;
+  animation: cardIn 0.32s ease both;
+  animation-delay: calc(var(--i, 0) * 14ms);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* карточки разлетаются до того, как поменяется порядок —
+   иначе перестановка мгновенная и её не видно */
+.gallery-grid.is-shuffling .gallery-item {
+  opacity: 0;
+  transform: scale(0.9) rotate(-1.5deg);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+  animation: none;
+}
+
+.shuffle-button:disabled {
+  color: var(--fg-faint);
+  cursor: default;
 }
 
 .gallery-item:hover {
@@ -1155,8 +1236,9 @@ mark {
   }
 
   .hero-name::after,
-  .ring {
-    animation: none;
+  .bubble,
+  .gallery-item {
+    animation: none !important;
   }
 
   *,

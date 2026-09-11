@@ -1048,95 +1048,255 @@ mark {
   border-color: var(--amber);
 }
 
-/* ═══ ПРОЕКТЫ ═══ */
-.projects-list {
-  padding-bottom: 3rem;
+/* ═══ ПРОЕКТЫ: СЕАНС В КОНСОЛИ ═══ */
+.term-wrap {
+  padding-block: 2.25rem 3rem;
 }
 
-.project-card {
-  display: grid;
-  grid-template-columns: var(--rail) 1fr;
-  gap: 1.6rem;
-  padding: 2rem 0;
-  border-top: 1px solid var(--rule-soft);
-}
-
-.project-card:first-child {
-  border-top: none;
-}
-
-.project-status {
-  font-size: 0.8rem;
-  color: var(--fg-faint);
+.term {
+  border: 1px solid var(--rule);
+  background: var(--ink-2);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding-top: 0.35rem;
 }
 
-.project-status .is-live {
-  color: var(--ok);
+.term-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.78rem;
 }
 
-.project-status .is-wip {
+.term-path {
   color: var(--amber);
 }
 
-.project-status .is-unpaid {
-  color: var(--alert);
-}
-
-.project-card h2 {
-  font-family: var(--cond);
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.7rem;
-}
-
-.project-card p {
-  font-family: var(--sans);
-  color: var(--fg-dim);
-  max-width: 68ch;
-  margin-bottom: 0.7rem;
-}
-
-.project-card p:last-of-type {
-  margin-bottom: 0;
-}
-
-.project-note {
-  border-left: 2px solid var(--rule);
-  padding-left: 1rem;
+.term-tip {
   color: var(--fg-faint);
 }
 
-.project-meta {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+.term-screen {
+  padding: 1rem 1rem 1.4rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.term-block + .term-block {
   margin-top: 1.1rem;
 }
 
-.project-meta a {
-  padding: 0.4rem 0.85rem;
-  font-family: var(--mono);
-  font-size: 0.85rem;
+.term-line.is-dim {
+  color: var(--fg-faint);
+}
+
+.term-line.is-warn {
+  color: var(--alert);
+}
+
+.term-line.is-text {
+  font-family: var(--sans);
+  color: var(--fg-dim);
+  max-width: 74ch;
+  margin-top: 0.5rem;
+}
+
+.term-line.is-note {
+  margin-top: 0.6rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--rule);
+  font-family: var(--sans);
+  color: var(--fg-faint);
+}
+
+.term-echo {
+  color: var(--fg);
+}
+
+.term-prompt {
+  color: var(--amber);
+  user-select: none;
+}
+
+/* ── строки «ключ → значение» ── */
+.term-pair {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 0.8rem;
+}
+
+.term-key {
+  color: var(--fg-faint);
+}
+
+/* ── список проектов ── */
+.term-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem 0 0.6rem;
+}
+
+.term-item {
+  display: grid;
+  grid-template-columns: 2.4rem 11rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: baseline;
+  width: 100%;
+  padding: 0.3rem 0.4rem;
+  margin-left: -0.4rem;
+  font: inherit;
+  text-align: left;
+  color: var(--fg);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.term-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.term-item:hover .term-id {
+  color: var(--amber);
+}
+
+.term-index {
+  color: var(--fg-faint);
+}
+
+.term-id {
+  transition: color 0.15s ease;
+}
+
+.term-tags {
+  font-size: 0.82rem;
+  color: var(--fg-faint);
+}
+
+.term-tags.is-live { color: var(--ok); }
+.term-tags.is-wip { color: var(--amber); }
+.term-tags.is-unpaid { color: var(--alert); }
+
+/* ── карточка одного проекта ── */
+.term-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+
+.term-name {
+  font-family: var(--cond);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.term-badge {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid;
+}
+
+.term-badge.is-live { color: var(--ok); }
+.term-badge.is-wip { color: var(--amber); }
+.term-badge.is-unpaid { color: var(--alert); }
+.term-badge.is-plain { color: var(--fg-faint); }
+
+.term-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.term-links a {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.84rem;
   color: var(--fg-dim);
   border: 1px solid var(--rule);
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.project-meta a:hover {
+.term-links a:hover {
   color: var(--amber);
   border-color: var(--amber);
 }
 
-.project-logo {
-  width: 2.5rem;
-  height: 2.5rem;
-  object-fit: contain;
-  margin-bottom: 0.7rem;
+/* ── строка ввода ── */
+.term-form {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.term-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--fg);
+  background: none;
+  border: none;
+  outline: none;
+  caret-color: var(--amber);
+}
+
+.term-input::placeholder {
+  color: var(--fg-faint);
+}
+
+.term-form:focus-within {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── подсказки под консолью ── */
+.term-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+
+.term-hint {
+  padding: 0.3rem 0.7rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--fg-faint);
+  background: none;
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.term-hint:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+/* ── без скриптов показываем обычный текст ── */
+.term-fallback {
+  margin-top: 1.5rem;
+}
+
+.term-fallback h2 {
+  font-family: var(--cond);
+  font-size: 1.3rem;
+  margin-top: 1.2rem;
+}
+
+.term-fallback p {
+  font-family: var(--sans);
+  color: var(--fg-dim);
+  max-width: 70ch;
 }
 
 /* ═══ ИНТЕРАКТИВ ═══ */
@@ -1327,6 +1487,21 @@ mark {
 }
 
 @media (max-width: 700px) {
+  .term-pair,
+  .term-item {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  .term-item {
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .term-screen {
+    max-height: none;
+  }
+
   .home-grid {
     grid-template-columns: 1fr;
   }
@@ -1382,7 +1557,6 @@ mark {
   }
 
   .row,
-  .project-card,
   .post-card {
     grid-template-columns: 1fr;
     gap: 0.5rem;

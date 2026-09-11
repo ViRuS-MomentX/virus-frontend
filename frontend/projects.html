@@ -39,86 +39,42 @@
   </div>
 </div>
 
-<div class="wrapper">
-  <div class="projects-list">
+<main class="wrapper term-wrap">
 
-    <article class="project-card">
-      <div class="project-status">
-        <span>на заказ</span>
-        <span class="is-unpaid">не оплачен</span>
-      </div>
-      <div>
-        <h2>Discord чат-бот</h2>
-        <p>
-          Сделан на заказ для сервера <strong>ROBLOX SPACE</strong>. Задача была
-          снять с администрации рутину: бот обрабатывает команды, реагирует на
-          ключевые слова, выдаёт готовые ответы и крутит казино (подкручено).
-          Администрация после этого стала сидеть в чате ещё больше.
-        </p>
-        <p class="project-note">
-          За работу до сих пор не заплатили дошиком.
-        </p>
-      </div>
-    </article>
+  <section class="term" aria-label="Консоль проектов">
+    <header class="term-bar">
+      <span class="term-path">virus@projects</span>
+      <span class="term-tip">введи help или нажми подсказку снизу</span>
+    </header>
 
-    <article class="project-card">
-      <div class="project-status">
-        <span class="is-live">работает</span>
-      </div>
-      <div>
-        <h2>Telegram — Virus Finder</h2>
-        <p>
-          Бот для поиска по Telegram на базе <strong>funstat</strong> — платформы,
-          которая каждый день разбирает миллионы групп и собирает по пользователям
-          интересы, активность и историю сообщений.
-        </p>
-        <p>
-          Funstat умеет искать людей по номеру, почте и ФИО. Такими штуками
-          пользуются в OSINT, при проверке контрагентов и в журналистских
-          расследованиях — это один из самых сильных открытых инструментов
-          в своём роде.
-        </p>
-        <p class="project-note">
-          Бот только для личного пользования, доступ к funstat закрытый.
-        </p>
-        <div class="project-meta">
-          <a href="https://t.me/FuNny_bott_bot" target="_blank" rel="noopener">@FuNny_bott_bot</a>
-        </div>
-      </div>
-    </article>
+    <div class="term-screen" id="term-screen" aria-live="polite"></div>
 
-    <article class="project-card">
-      <div class="project-status">
-        <span>minecraft</span>
-        <span class="is-wip">в разработке</span>
-      </div>
-      <div>
-        <img class="project-logo" src="images/squadworld.webp" alt="" width="40" height="40" loading="lazy" decoding="async">
-        <h2>Squad World</h2>
-        <p>
-          Ванильный Minecraft-сервер с самописными датапаками и плагинами.
-          Никаких читов и сторонних клиентов, ломающих механику — чистый
-          ванильный геймплей плюс кастомные фичи под задачи сервера.
-        </p>
-        <p>
-          Я тут разработчик, который генерирует идеи в дипсике и передаёт их
-          разработчику, который реализует их через чат джпт.
-        </p>
-        <p>
-          Сейчас всё на стадии сборки: пишутся плагины, тестируются датапаки,
-          копится гравий на старт.
-        </p>
-        <p class="project-note">
-          Заходи в дискорд, если хочешь следить за проектом.
-        </p>
-        <div class="project-meta">
-          <a href="https://discord.gg/NxeMW7zzTa" target="_blank" rel="noopener">Дискорд сервера</a>
-        </div>
-      </div>
-    </article>
+    <form class="term-form" id="term-form" autocomplete="off">
+      <label class="term-prompt" for="term-input">$</label>
+      <input class="term-input" id="term-input" name="cmd" type="text"
+             placeholder="команда" aria-label="Команда" spellcheck="false">
+    </form>
+  </section>
 
-  </div>
-</div>
+  <div class="term-hints" id="term-hints" hidden></div>
+
+  <noscript>
+    <div class="term-fallback">
+      <h2>Discord чат-бот</h2>
+      <p>На заказ для сервера ROBLOX SPACE: обрабатывает команды, реагирует на ключевые
+        слова, выдаёт готовые ответы и крутит казино. За работу до сих пор не заплатили дошиком.</p>
+
+      <h2>Telegram — Virus Finder</h2>
+      <p>Бот для поиска по Telegram на базе funstat. Только для личного пользования,
+        доступ к funstat закрытый. <a href="https://t.me/FuNny_bott_bot" target="_blank" rel="noopener">@FuNny_bott_bot</a></p>
+
+      <h2>Squad World</h2>
+      <p>Ванильный Minecraft-сервер с самописными датапаками и плагинами. Сейчас на стадии
+        сборки. <a href="https://discord.gg/NxeMW7zzTa" target="_blank" rel="noopener">Дискорд сервера</a></p>
+    </div>
+  </noscript>
+
+</main>
 
 <footer class="ft">
   <div class="wrapper">
@@ -131,6 +87,7 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
+<script type="module" src="/projects.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="/analytics-tracker.js"></script>
 </body>

@@ -49,77 +49,84 @@
   </div>
 </section>
 
+<section class="quote-band">
+  <div class="wrapper quote-band-inner">
+    <div class="quote-label">сократова цитата</div>
+    <blockquote class="quote" id="quote">
+      <p class="quote-text"></p>
+      <cite class="quote-author"></cite>
+    </blockquote>
+  </div>
+</section>
+
 <main class="wrapper home-grid">
 
-  <section class="panel">
-    <h2 class="panel-title">информация</h2>
+  <section class="summary" aria-label="Сводка по сайту">
+    <h2 class="panel-title">сводка</h2>
 
-    <div class="row">
-      <div class="row-key">статус</div>
-      <div class="row-val">
-        <span class="status-live">идёт ремонт</span>
-        <span class="readout-note">осталось чуть-чуть</span>
-      </div>
+    <a class="summary-row" href="gallery.html">
+      <span class="summary-num" id="photoCount">—</span>
+      <span class="summary-key">фото</span>
+    </a>
+
+    <a class="summary-row" href="posts.html">
+      <span class="summary-num" id="postCount">—</span>
+      <span class="summary-key">посты</span>
+    </a>
+
+    <a class="summary-row" href="projects.html">
+      <span class="summary-num">3</span>
+      <span class="summary-key">проекта</span>
+    </a>
+
+    <div class="summary-row is-static">
+      <span class="summary-status status-live">идёт ремонт</span>
+      <span class="summary-key">осталось чуть-чуть</span>
     </div>
-
-    <div class="row">
-      <div class="row-key">фото</div>
-      <div class="row-val">
-        <span class="readout-num" id="photoCount">—</span>
-        <span class="readout-note">скриншоты из майна, роблокса и фазмофобии</span>
-        <a class="readout-go" href="gallery.html">открыть галерею</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="row-key">посты</div>
-      <div class="row-val">
-        <span class="readout-num" id="postCount">—</span>
-        <span class="readout-note">новости, мысли, чэнджлоги</span>
-        <a class="readout-go" href="posts.html">читать ленту</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="row-key">проекты</div>
-      <div class="row-val">
-        <span class="readout-num">3</span>
-        <span class="readout-note">два бота и майн-сервер</span>
-        <a class="readout-go" href="projects.html">смотреть проекты</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="row-key">сократова цитата</div>
-      <div class="row-val">
-        <blockquote class="quote" id="quote">
-          <p class="quote-text"></p>
-          <cite class="quote-author"></cite>
-        </blockquote>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="row-key">помогали</div>
-      <div class="row-val">
-        <div class="credits">
-          <span>ChatGPT</span>
-          <span>Claude</span>
-          <span>Gemini</span>
-          <span>GitHub Copilot</span>
-          <span>Perplexity</span>
-          <span>DALL·E</span>
-          <span>Midjourney</span>
-          <span>Mistral</span>
-          <span>GigaChat</span>
-          <span>ZorahM-GPT</span>
-        </div>
-      </div>
-    </div>
-
   </section>
 
-  <aside class="home-side">
+  <section class="about panel">
+    <h2 class="panel-title">о сайте</h2>
+
+    <p class="about-lead">
+      Это личная страница Вируса — без цели, без плана и без дедлайнов.
+    </p>
+
+    <p>
+      Здесь лежит всё, что накопилось за время игры и безделья: сотня с лишним
+      скриншотов, у каждого своя подпись; пара ботов и майн-сервер, который всё
+      никак не доедет до релиза; и лента, куда падает остальное — новости
+      страницы, мысли и чэнджлоги.
+    </p>
+
+    <p>
+      Верстал сам, по ходу спрашивая совета у целой толпы нейросетей — их список
+      бежит внизу страницы. Что из этого вышло, видно вокруг.
+    </p>
+
+    <div class="about-list">
+      <a class="about-item" href="gallery.html">
+        <span class="about-item-name">Галерея</span>
+        <span class="about-item-note">скриншоты из майна, роблокса и фазмофобии, с подписями</span>
+      </a>
+      <a class="about-item" href="projects.html">
+        <span class="about-item-name">Проекты</span>
+        <span class="about-item-note">два бота и Squad World, один из них до сих пор не оплачен</span>
+      </a>
+      <a class="about-item" href="posts.html">
+        <span class="about-item-name">Интерактив</span>
+        <span class="about-item-note">лента заметок: что сломал, что починил, что просто приснилось</span>
+      </a>
+    </div>
+
+    <p class="about-foot">
+      Нужен бот, сервер или просто поболтать — пиши
+      в <a href="https://t.me/IAmVirus" target="_blank" rel="noopener">телеграм</a>
+      или <a href="https://discord.com/users/573196687481372675" target="_blank" rel="noopener">дискорд</a>.
+    </p>
+  </section>
+
+<aside class="home-side">
 
     <section class="panel">
       <h2 class="panel-title">мои соцсети</h2>
@@ -148,6 +155,33 @@
   </aside>
 
 </main>
+
+<section class="marquee" aria-label="Нейросети, которые помогали со страницей">
+  <div class="marquee-track">
+    <span class="marquee-item is-label">со страницей помогали</span>
+    <span class="marquee-item">ChatGPT</span>
+    <span class="marquee-item">Claude</span>
+    <span class="marquee-item">Gemini</span>
+    <span class="marquee-item">GitHub Copilot</span>
+    <span class="marquee-item">Perplexity</span>
+    <span class="marquee-item">DALL·E</span>
+    <span class="marquee-item">Midjourney</span>
+    <span class="marquee-item">Mistral</span>
+    <span class="marquee-item">GigaChat</span>
+    <span class="marquee-item">ZorahM-GPT</span>
+    <span class="marquee-item is-label" aria-hidden="true">со страницей помогали</span>
+    <span class="marquee-item" aria-hidden="true">ChatGPT</span>
+    <span class="marquee-item" aria-hidden="true">Claude</span>
+    <span class="marquee-item" aria-hidden="true">Gemini</span>
+    <span class="marquee-item" aria-hidden="true">GitHub Copilot</span>
+    <span class="marquee-item" aria-hidden="true">Perplexity</span>
+    <span class="marquee-item" aria-hidden="true">DALL·E</span>
+    <span class="marquee-item" aria-hidden="true">Midjourney</span>
+    <span class="marquee-item" aria-hidden="true">Mistral</span>
+    <span class="marquee-item" aria-hidden="true">GigaChat</span>
+    <span class="marquee-item" aria-hidden="true">ZorahM-GPT</span>
+  </div>
+</section>
 
 <footer class="ft">
   <div class="wrapper">

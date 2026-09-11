@@ -804,6 +804,7 @@ body.posts-page .page-head {
   gap: 1px;
   background: var(--rule-soft);
   border: 1px solid var(--rule-soft);
+  margin-top: 2.25rem;
   margin-bottom: 3rem;
 }
 
@@ -932,6 +933,9 @@ mark {
   max-width: none;
   width: max-content;
   align-items: flex-start;
+  /* именно margin, а не justify-content: при центрировании флексом
+     переполнение обрезается и до левого края снимка не долистать */
+  margin: auto;
 }
 
 #lightbox.is-zoomed img {

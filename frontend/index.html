@@ -19,7 +19,7 @@
 
 <div class="topbar">
   <div class="wrapper">
-    <div class="brand">virus<span>/</span></div>
+    <div class="brand">virus<span>/</span>main</div>
     <nav class="topbar-nav">
       <a href="index.html" class="on">главная</a>
       <a href="gallery.html">галерея</a>
@@ -31,32 +31,7 @@
 
 <section class="hero">
   <div class="hero-bg" aria-hidden="true">
-    <svg class="hero-rings" viewBox="0 0 1216 480" preserveAspectRatio="xMidYMid slice">
-      <circle class="ring" cx="147" cy="428" r="6" style="--dur:9.4s;--delay:-3.4s"/>
-      <circle class="ring" cx="940" cy="99" r="6" style="--dur:7.0s;--delay:-4.5s"/>
-      <circle class="ring" cx="770" cy="157" r="6" style="--dur:10.2s;--delay:-5.0s"/>
-      <circle class="ring" cx="635" cy="167" r="4" style="--dur:10.6s;--delay:-5.9s"/>
-      <circle class="ring" cx="494" cy="175" r="3" style="--dur:10.0s;--delay:-4.7s"/>
-      <circle class="ring" cx="283" cy="438" r="10" style="--dur:6.5s;--delay:-4.5s"/>
-      <circle class="ring" cx="187" cy="224" r="5" style="--dur:8.0s;--delay:-1.8s"/>
-      <circle class="ring" cx="738" cy="346" r="4" style="--dur:8.3s;--delay:-5.6s"/>
-      <circle class="ring" cx="585" cy="189" r="8" style="--dur:5.8s;--delay:-5.2s"/>
-      <circle class="ring" cx="1137" cy="95" r="10" style="--dur:9.1s;--delay:-5.1s"/>
-      <circle class="ring" cx="648" cy="227" r="8" style="--dur:9.2s;--delay:-2.1s"/>
-      <circle class="ring" cx="271" cy="148" r="3" style="--dur:8.6s;--delay:-5.1s"/>
-      <circle class="ring" cx="666" cy="107" r="6" style="--dur:8.6s;--delay:-4.4s"/>
-      <circle class="ring" cx="790" cy="106" r="10" style="--dur:10.6s;--delay:-0.3s"/>
-      <circle class="ring" cx="941" cy="424" r="10" style="--dur:5.8s;--delay:-3.4s"/>
-      <circle class="ring" cx="891" cy="441" r="3" style="--dur:7.5s;--delay:-4.8s"/>
-      <circle class="ring" cx="767" cy="411" r="6" style="--dur:10.8s;--delay:-4.0s"/>
-      <circle class="ring" cx="841" cy="396" r="6" style="--dur:11.0s;--delay:-1.5s"/>
-      <circle class="ring" cx="1058" cy="93" r="10" style="--dur:6.1s;--delay:-4.2s"/>
-      <circle class="ring" cx="369" cy="82" r="6" style="--dur:6.5s;--delay:-5.1s"/>
-      <circle class="ring" cx="37" cy="39" r="10" style="--dur:8.9s;--delay:-3.2s"/>
-      <circle class="ring" cx="795" cy="368" r="4" style="--dur:7.7s;--delay:-2.4s"/>
-      <circle class="ring" cx="200" cy="42" r="10" style="--dur:7.3s;--delay:-6.0s"/>
-      <circle class="ring" cx="111" cy="347" r="8" style="--dur:5.9s;--delay:-1.4s"/>
-    </svg>
+    <svg class="hero-bubbles" viewBox="0 0 1216 480" preserveAspectRatio="xMidYMid slice"></svg>
   </div>
   <div class="wrapper">
     <div class="hero-grid">
@@ -64,7 +39,7 @@
         <img src="images/филя.png" alt="Кот Филя — аватар Вируса" width="168" height="168" loading="eager" decoding="async">
       </div>
       <div>
-        <h1 class="hero-name">вирус</h1>
+        <h1 class="hero-name" aria-label="Вирус"><span aria-hidden="true">ᐯ丨尺ㄩ丂</span></h1>
         <p class="hero-sub">
           Живу как карты ляжут, играю в майн и пью милкшейк.
           А что мне ещё остаётся?
@@ -200,6 +175,31 @@
   const latest = [...posts]
     .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time))
     .slice(0, 3);
+
+
+  // ── Пузыри: быстро растут, лопаются и всплывают в новом месте ──
+  const bubbleLayer = document.querySelector('.hero-bubbles');
+  if (bubbleLayer && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const W = 1216, H = 480, COUNT = 20;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+
+    const place = c => {
+      c.setAttribute('cx', rnd(26, W - 26).toFixed(0));
+      c.setAttribute('cy', rnd(26, H - 26).toFixed(0));
+      c.setAttribute('r', rnd(5, 18).toFixed(0));
+      // длительность меняем только пока пузырь невидим, иначе будет рывок
+      c.style.setProperty('--dur', rnd(2.1, 4.3).toFixed(2) + 's');
+    };
+
+    for (let i = 0; i < COUNT; i++) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('class', 'bubble');
+      place(c);
+      c.style.animationDelay = '-' + rnd(0, 4).toFixed(2) + 's';
+      c.addEventListener('animationiteration', () => place(c));
+      bubbleLayer.appendChild(c);
+    }
+  }
 
   document.getElementById('latestPosts').innerHTML = latest.map(p => `
     <a class="post-mini" href="posts.html">

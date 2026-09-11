@@ -524,6 +524,34 @@ a:hover {
   opacity: 1;
 }
 
+/* ── Мысль: меняется раз в 30 секунд ── */
+.quote {
+  transition: opacity 0.3s ease;
+}
+
+.quote.is-swapping {
+  opacity: 0;
+}
+
+.quote-text {
+  font-family: var(--sans);
+  color: var(--fg-dim);
+  max-width: 60ch;
+}
+
+.quote-author {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-style: normal;
+  color: var(--fg-faint);
+}
+
+.quote-author::before {
+  content: '— ';
+}
+
 /* ── Кто помогал ── */
 .credits {
   display: flex;

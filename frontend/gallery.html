@@ -47,19 +47,19 @@
       <div class="row-val">
         <div class="game-filters">
           <button class="game-filter active" data-game="" data-label="Все игры" aria-label="Все игры">
-            <img src="images/all.png" alt="" width="22" height="22" loading="eager">
+            <img src="images/all.webp" alt="" width="22" height="22" loading="eager">
           </button>
           <button class="game-filter" data-game="minecraft" data-label="Minecraft" aria-label="Minecraft">
-            <img src="images/minecraft.png" alt="" width="22" height="22" loading="eager">
+            <img src="images/minecraft.webp" alt="" width="22" height="22" loading="eager">
           </button>
           <button class="game-filter" data-game="roblox" data-label="Roblox" aria-label="Roblox">
-            <img src="images/roblox.png" alt="" width="22" height="22" loading="eager">
+            <img src="images/roblox.webp" alt="" width="22" height="22" loading="eager">
           </button>
           <button class="game-filter" data-game="phasmo" data-label="Phasmophobia" aria-label="Phasmophobia">
             <img src="images/phasmo.ico" alt="" width="22" height="22" loading="eager">
           </button>
           <button class="game-filter" data-game="rivals" data-label="Marvel Rivals" aria-label="Marvel Rivals">
-            <img src="images/marvel.png" alt="" width="22" height="22" loading="eager">
+            <img src="images/marvel.webp" alt="" width="22" height="22" loading="eager">
           </button>
           <button class="game-filter" data-game="dbd" data-label="Dead by Daylight" aria-label="Dead by Daylight">
             <img src="images/dbd.jpg" alt="" width="22" height="22" loading="eager">
@@ -106,7 +106,7 @@
 <div id="lightbox">
   <span class="close-btn">&times;</span>
   <div class="lightbox-content">
-    <img src="" alt="Увеличенное фото" id="lightboxImg" />
+    <img alt="Увеличенное фото" id="lightboxImg" />
     <div class="lightbox-comment" id="lightboxComment"></div>
   </div>
 </div>
@@ -189,14 +189,23 @@ function render(){
   items.forEach((item, index)=>{
     let card = document.createElement("div");
     card.className = "gallery-item";
+    // без этого фото нельзя открыть с клавиатуры: div сам по себе не фокусируется
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", "Открыть фото: " + item.comment);
     card.dataset.comment = item.comment;
     // индекс нужен для ступенчатого появления после перемешивания;
     // выше 28 задержка не растёт — дальше карточки всё равно за экраном
     card.style.setProperty("--i", Math.min(index, 28));
 
+    card.dataset.full = item.name;
+
+    // в сетку идёт превью 480px, оригинал открывается только в лайтбоксе
+    const thumb = "images/thumbs/" + item.name.replace(/^images\//, "").replace(/\.[^.]+$/, "") + ".webp";
+
     card.innerHTML = `
       <div class="gallery-thumb">
-        <img src="${item.name}" loading="lazy" decoding="async" alt="${escapeHtml(gameLabels[item.game] + ": " + item.comment)}">
+        <img src="${thumb}" width="480" height="360" loading="lazy" decoding="async" alt="${escapeHtml(gameLabels[item.game] + ": " + item.comment)}">
       </div>
       <div class="desc">
         <span class="card-tag">${gameLabels[item.game]}</span>
@@ -252,12 +261,19 @@ const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const comment = document.getElementById("lightboxComment");
 
+grid.addEventListener("keydown", e=>{
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const card = e.target.closest(".gallery-item");
+  if(!card) return;
+  e.preventDefault();          // иначе пробел прокрутит страницу
+  card.click();
+});
+
 grid.onclick = e=>{
   let card = e.target.closest(".gallery-item");
   if(!card) return;
 
-  let img = card.querySelector("img");
-  lightboxImg.src = img.src;
+  lightboxImg.src = card.dataset.full;
   comment.textContent = card.dataset.comment;
 
   lightbox.classList.add("active");

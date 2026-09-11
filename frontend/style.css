@@ -18,7 +18,7 @@
   --rule-soft: #1c242e;
   --fg: #ccd3da;
   --fg-dim: #7a8794;
-  --fg-faint: #56616c;
+  --fg-faint: #727e8b;   /* было #56616c: контраст 2.99:1 при норме 4.5, стало 4.57:1 */
   --amber: #e2a03f;
   --steel: #7fa8c0;
   --alert: #cc6b5e;
@@ -298,7 +298,7 @@ a:hover {
 }
 
 /* числа набираем с перечёркнутым нулём */
-.readout-num,
+.summary-num,
 .stat-num,
 .head-count,
 .post-meta,
@@ -606,69 +606,8 @@ a.summary-row:hover .summary-num {
   flex-wrap: wrap;
 }
 
-.readout-num {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--amber);
-  line-height: 1.2;
-  min-width: 3ch;
-}
-
-.readout-note {
-  font-family: var(--sans);
-  color: var(--fg-dim);
-  font-size: 0.95rem;
-}
-
-.readout-go {
-  margin-left: auto;
-  font-size: 0.85rem;
-  color: var(--fg-faint);
-  border-bottom: 1px solid transparent;
-}
-
-.readout-go:hover {
-  color: var(--amber);
-  border-bottom-color: var(--amber);
-}
-
 .status-live {
   color: var(--ok);
-}
-
-/* ── Ссылки на соцсети ── */
-.links {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.85rem;
-  color: var(--fg-dim);
-  border: 1px solid var(--rule);
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.links a:hover {
-  color: var(--amber);
-  border-color: var(--amber);
-}
-
-.links .ic {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  fill: currentColor;
-  opacity: 0.75;
-}
-
-.links a:hover .ic {
-  opacity: 1;
 }
 
 /* ── Мысль: меняется раз в 30 секунд ── */
@@ -697,15 +636,6 @@ a.summary-row:hover .summary-num {
 
 .quote-author::before {
   content: '— ';
-}
-
-/* ── Кто помогал ── */
-.credits {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.2rem;
-  font-size: 0.85rem;
-  color: var(--fg-faint);
 }
 
 /* ═══ ЗАГОЛОВОК СТРАНИЦЫ ═══ */
@@ -937,7 +867,6 @@ body.posts-page .page-head {
   color: var(--fg-faint);
 }
 
-.photo-counter,
 .posts-count {
   font-size: 0.82rem;
   color: var(--fg-faint);
@@ -1157,7 +1086,7 @@ mark {
   color: var(--alert);
 }
 
-.project-card h3 {
+.project-card h2 {
   font-family: var(--cond);
   font-size: 1.5rem;
   font-weight: 600;
@@ -1280,10 +1209,6 @@ mark {
   filter: saturate(1);
 }
 
-.post-zoom-hint {
-  display: none;
-}
-
 .post-empty {
   padding: 2.5rem 0;
   color: var(--fg-faint);
@@ -1370,10 +1295,6 @@ mark {
 .ft-r {
   font-size: 0.8rem;
   color: var(--fg-faint);
-}
-
-.ft-d {
-  display: none;
 }
 
 /* ═══ АДАПТАЦИЯ ═══ */
@@ -1477,10 +1398,6 @@ mark {
 
   .social-tiles {
     grid-template-columns: repeat(4, 1fr);
-  }
-
-  .readout-go {
-    margin-left: 0;
   }
 
   .gallery-grid {

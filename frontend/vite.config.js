@@ -12,14 +12,13 @@ export default defineConfig({
         gallery: resolve(__dirname, 'gallery.html'),
         projects: resolve(__dirname, 'projects.html'),
         posts: resolve(__dirname, 'posts.html'),
-        postsBlock: resolve(__dirname, 'posts-block.html'),
         admin: resolve(__dirname, 'admin.html'),
       }
     }
   },
   server: {
     proxy: {
-      '/api': 'virus-backend-nine.vercel.app'
+      '/api': 'https://virus-backend-nine.vercel.app'
     }
   }
 })

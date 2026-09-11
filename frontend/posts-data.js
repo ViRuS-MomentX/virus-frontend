@@ -30,7 +30,7 @@ export const posts = [
     date: "2026-07-02",
     time: "22:22",
     text: "Сделал масштабную «уборку» в репозитории, теперь не стыдно оставлять ссылку на гитхаб",
-    image: "images/гитхаб.png",
+    image: "images/гитхаб.webp",
     category: "personal"
   },
   {
@@ -46,7 +46,7 @@ export const posts = [
     date: "2026-07-04",
     time: "20:49",
     text: "Добавлен новый проект - Squad World",
-    image: "images/squadworld.png",
+    image: "images/squadworld.webp",
     category: "game"
   },
   {
@@ -128,7 +128,7 @@ export const posts = [
     date: "2026-08-18",
     time: "16:30",
     text: "Мне тут посоветовали использовать сборщик фронтенда Vite и фреймворк Next.js. Скоро сайт станет современным, а не просто какой то страницей на html написанной дипсиком",
-    image: "images/зорахпривет.png"
+    image: "images/зорахпривет.webp"
   },
     {
     title: "Разработка началась",

@@ -61,7 +61,7 @@ function render(){
       </div>
       <div>
         ${p.tag ? `<div class="post-tag">${highlight(p.tag, rawQuery)}</div>` : ""}
-        <h3 class="post-title">${highlight(p.title, rawQuery)}</h3>
+        <h2 class="post-title">${highlight(p.title, rawQuery)}</h2>
         ${p.image ? `<div class="post-image-wrap"><img class="post-image" src="${p.image}" loading="lazy" decoding="async" alt="${escapeHtml(p.title)}"></div>` : ""}
         <div class="post-body">${highlight(p.text || "", rawQuery)}</div>
       </div>

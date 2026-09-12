@@ -7,10 +7,24 @@ const searchInput = document.getElementById("searchInput");
 const feed = document.getElementById("postsFeed");
 const count = document.getElementById("postsCount");
 
-function formatDate(date, time){
-  const d = new Date(date + "T" + time);
-  const day = d.toLocaleDateString("ru-RU",{day:"2-digit",month:"2-digit",year:"numeric"});
-  return `${day}<br>${time}`;
+// день для разделителя: сегодня и вчера подписываем словами
+function dayLabel(date){
+  const d = new Date(date + "T00:00");
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.round((today - d) / 86400000);
+  if (diff === 0) return "сегодня";
+  if (diff === 1) return "вчера";
+  const opts = { day: "numeric", month: "long" };
+  if (d.getFullYear() !== today.getFullYear()) opts.year = "numeric";
+  return d.toLocaleDateString("ru-RU", opts);
+}
+
+function plural(n, one, few, many){
+  const a = Math.abs(n) % 100, b = a % 10;
+  if (a > 10 && a < 20) return many;
+  if (b > 1 && b < 5) return few;
+  if (b === 1) return one;
+  return many;
 }
 
 function norm(str){
@@ -47,26 +61,39 @@ function render(){
     );
   }
 
-  count.textContent = `Постов: ${list.length}`;
+  count.textContent = `${list.length} ${plural(list.length, "запись", "записи", "записей")}`;
 
   if(list.length === 0){
-    feed.innerHTML = `<div class="post-empty">Ничего не найдено</div>`;
+    feed.innerHTML = `<div class="ch-empty">По запросу ничего нет. Попробуй другое слово или очисти поиск.</div>`;
     return;
   }
 
-  feed.innerHTML = list.map(p => `
-    <article class="post-card">
-      <div class="post-meta">
-        <span class="post-date-time">${formatDate(p.date,p.time)}</span>
-      </div>
-      <div>
-        ${p.tag ? `<div class="post-tag">${highlight(p.tag, rawQuery)}</div>` : ""}
-        <h2 class="post-title">${highlight(p.title, rawQuery)}</h2>
-        ${p.image ? `<div class="post-image-wrap"><img class="post-image" src="${p.image}" loading="lazy" decoding="async" alt="${escapeHtml(p.title)}"></div>` : ""}
-        <div class="post-body">${highlight(p.text || "", rawQuery)}</div>
-      </div>
-    </article>
-  `).join("");
+  const TAGS = { personal: "личное", game: "игра", ai: "нейронки" };
+
+  let html = "";
+  let lastDay = null;
+
+  for (const p of list) {
+    // разделитель дня, как в мессенджере
+    if (p.date !== lastDay) {
+      lastDay = p.date;
+      html += `<div class="ch-day"><span>${escapeHtml(dayLabel(p.date))}</span></div>`;
+    }
+
+    const tag = p.category
+      ? `<span class="ch-tag">#${escapeHtml(TAGS[p.category] || p.category)}</span>` : "";
+    const title = (p.title || "").trim();
+
+    html += `
+      <article class="ch-msg">
+        ${title ? `<h2 class="ch-title">${highlight(title, rawQuery)}</h2>` : ""}
+        ${p.image ? `<div class="ch-photo post-image-wrap"><img class="post-image" src="${escapeHtml(p.image)}" loading="lazy" decoding="async" alt="${escapeHtml(title || "Фото к записи")}"></div>` : ""}
+        ${p.text ? `<div class="ch-text">${highlight(p.text, rawQuery)}</div>` : ""}
+        <footer class="ch-meta">${tag}<time class="ch-time">${escapeHtml(p.time)}</time></footer>
+      </article>`;
+  }
+
+  feed.innerHTML = html;
 }
 
 if (searchInput) {

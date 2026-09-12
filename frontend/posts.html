@@ -29,32 +29,22 @@
   </div>
 </div>
 
-<div class="page-head">
-  <div class="wrapper page-head-top">
-    <div class="page-title">
-      <h1>Интерактив</h1>
-      <p>Новости страницы, мысли и чэнджлоги. Что успел — то и записал.</p>
-    </div>
-    <div class="head-count" id="postsCount"></div>
-  </div>
-</div>
+<main class="wrapper channel">
 
-<div class="wrapper">
-  <div class="controls">
-    <div class="row">
-      <div class="row-key">поиск</div>
-      <div class="row-val">
-        <div class="posts-search-wrap">
-          <input id="searchInput" type="text" placeholder="искать по тексту постов" autocomplete="off" />
-        </div>
-      </div>
+  <header class="ch-head">
+    <img class="ch-ava" src="images/филя.webp" alt="" width="44" height="44" decoding="async">
+    <div class="ch-who">
+      <h1 class="ch-name">Вирус</h1>
+      <p class="ch-sub"><span id="postsCount"></span> в канале</p>
     </div>
-  </div>
+    <form class="ch-search" role="search" onsubmit="return false">
+      <input id="searchInput" type="search" placeholder="поиск по записям" autocomplete="off" aria-label="Поиск по записям">
+    </form>
+  </header>
 
-  <div class="posts-shell">
-    <div id="postsFeed"></div>
-  </div>
-</div>
+  <div class="ch-feed" id="postsFeed"></div>
+
+</main>
 
 <footer class="ft">
   <div class="wrapper">

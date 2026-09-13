@@ -350,11 +350,8 @@ a:hover {
   border-bottom-color: var(--amber);
 }
 
-/* ── Полоса с цитатой: единственное крупное место после имени ── */
-.quote-band {
-  border-bottom: 1px solid var(--rule);
-}
-
+/* ── Полоса с цитатой: единственное крупное место после имени.
+      Черта сверху — граница hero, снизу линии нет специально. ── */
 .quote-band-inner {
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
@@ -364,12 +361,34 @@ a:hover {
 }
 
 .quote-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
   font-size: 0.8rem;
   color: var(--fg-faint);
   padding-top: 0.6rem;
 }
 
+/* кнопка для клавиатуры и читалок; мышью можно жать по самой цитате */
+.quote-next {
+  padding: 0.2rem 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--fg-dim);
+  background: none;
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.quote-next:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
 .quote {
+  cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
@@ -378,22 +397,22 @@ a:hover {
 }
 
 .quote-text {
-  font-family: var(--cond);
+  font-family: var(--sans);
   font-size: clamp(1.25rem, 2.6vw, 1.9rem);
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  color: var(--fg);
-  max-width: 40ch;
+  color: var(--fg-dim);
+  max-width: 60ch;
 }
 
 .quote-author {
   display: block;
-  margin-top: 0.6rem;
+  margin-top: 0.3rem;
   font-family: var(--mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-style: normal;
-  color: var(--amber);
+  color: var(--fg-faint);
 }
 
 .quote-author::before {
@@ -609,34 +628,6 @@ a.summary-row:hover .summary-num {
 
 .status-live {
   color: var(--ok);
-}
-
-/* ── Мысль: меняется раз в 30 секунд ── */
-.quote {
-  transition: opacity 0.3s ease;
-}
-
-.quote.is-swapping {
-  opacity: 0;
-}
-
-.quote-text {
-  font-family: var(--sans);
-  color: var(--fg-dim);
-  max-width: 60ch;
-}
-
-.quote-author {
-  display: block;
-  margin-top: 0.3rem;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-style: normal;
-  color: var(--fg-faint);
-}
-
-.quote-author::before {
-  content: '— ';
 }
 
 /* ═══ ЗАГОЛОВОК СТРАНИЦЫ ═══ */
@@ -1555,6 +1546,9 @@ body.posts-page {
   }
 
   .quote-label {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
     padding-top: 0;
   }
 
@@ -1599,6 +1593,84 @@ body.posts-page {
     gap: 1.25rem;
   }
 
+  /* аватарка по центру, а не прижата к левому краю */
+  .hero-avatar {
+    margin-inline: auto;
+  }
+
+  /* вкладки занимают отдельную строку целиком и не переносятся */
+  .topbar .wrapper {
+    row-gap: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .topbar-nav {
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.2rem;
+  }
+
+  /* размер подстраивается под ширину экрана: четыре вкладки должны
+     помещаться в строку и на 320px, и не мельчить на 560px */
+  .topbar-nav a {
+    padding: 0.3rem clamp(0.25rem, 1.6vw, 0.7rem);
+    font-size: clamp(0.7rem, 2.9vw, 0.85rem);
+    white-space: nowrap;
+  }
+
+  /* сводка и цифры галереи ложатся в одну строку: число сверху, подпись снизу */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+    align-items: end;
+    gap: 0.5rem;
+  }
+
+  .summary .panel-title {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .summary-row {
+    padding: 0;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .summary-num {
+    font-size: 1.35rem;
+  }
+
+  .summary-key,
+  .summary-status {
+    font-size: 0.72rem;
+  }
+
+  .gallery-stats {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .stat-chip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.05rem;
+    white-space: nowrap;
+  }
+
+  .stat-num {
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+  }
+
   .row {
     grid-template-columns: 1fr;
     gap: 0.5rem;
@@ -1629,18 +1701,38 @@ body.posts-page {
      и липкая шапка канала уехала бы под неё — отпускаем её */
   .ch-head {
     position: static;
-    flex-wrap: wrap;
-    row-gap: 0.6rem;
+    gap: 0.7rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+
+  .ch-ava {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ch-name {
+    font-size: 1rem;
+  }
+
+  /* «в канале» съедает место, которое нужнее поиску */
+  .ch-sub-tail {
+    display: none;
+  }
+
+  .ch-sub {
+    white-space: nowrap;
   }
 
   .ch-search {
-    order: 3;
-    width: 100%;
-    margin-left: 0;
+    min-width: 0;
   }
 
   .ch-search #searchInput {
-    flex: 1 1 auto;
+    flex: 1 1 6rem;
+    min-width: 3.5rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.76rem;
   }
 
   .page-title h1 {

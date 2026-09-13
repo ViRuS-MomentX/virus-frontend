@@ -353,38 +353,8 @@ a:hover {
 /* ── Полоса с цитатой: единственное крупное место после имени.
       Черта сверху — граница hero, снизу линии нет специально. ── */
 .quote-band-inner {
-  display: grid;
-  grid-template-columns: var(--rail) minmax(0, 1fr);
-  gap: 1.6rem;
   padding-top: 2.25rem;
   padding-bottom: 2.25rem;
-}
-
-.quote-label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.55rem;
-  font-size: 0.8rem;
-  color: var(--fg-faint);
-  padding-top: 0.6rem;
-}
-
-/* кнопка для клавиатуры и читалок; мышью можно жать по самой цитате */
-.quote-next {
-  padding: 0.2rem 0.6rem;
-  font-family: var(--mono);
-  font-size: 0.76rem;
-  color: var(--fg-dim);
-  background: none;
-  border: 1px solid var(--rule);
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.quote-next:hover {
-  color: var(--amber);
-  border-color: var(--amber);
 }
 
 .quote {
@@ -439,11 +409,6 @@ a:hover {
   line-height: 1.1;
   color: var(--amber);
   font-feature-settings: 'zero' 1;
-}
-
-.summary-status {
-  font-size: 0.95rem;
-  line-height: 1.3;
 }
 
 .summary-key {
@@ -624,10 +589,6 @@ a.summary-row:hover .summary-num {
   align-items: baseline;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-.status-live {
-  color: var(--ok);
 }
 
 /* ═══ ЗАГОЛОВОК СТРАНИЦЫ ═══ */
@@ -1540,18 +1501,6 @@ body.posts-page {
     grid-template-columns: 1fr;
   }
 
-  .quote-band-inner {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
-
-  .quote-label {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.8rem;
-    padding-top: 0;
-  }
-
   .about-item {
     grid-template-columns: 1fr;
     gap: 0.15rem;
@@ -1593,9 +1542,13 @@ body.posts-page {
     gap: 1.25rem;
   }
 
-  /* аватарка по центру, а не прижата к левому краю */
+  /* аватарка и имя по центру, а не прижаты к левому краю */
   .hero-avatar {
     margin-inline: auto;
+  }
+
+  .hero-name {
+    text-align: center;
   }
 
   /* вкладки занимают отдельную строку целиком и не переносятся */
@@ -1623,7 +1576,7 @@ body.posts-page {
   /* сводка и цифры галереи ложатся в одну строку: число сверху, подпись снизу */
   .summary {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(3, auto);
     justify-content: space-between;
     align-items: end;
     gap: 0.5rem;
@@ -1632,6 +1585,7 @@ body.posts-page {
   .summary .panel-title {
     grid-column: 1 / -1;
     margin-bottom: 0;
+    text-align: center;
   }
 
   .summary-row {
@@ -1644,8 +1598,7 @@ body.posts-page {
     font-size: 1.35rem;
   }
 
-  .summary-key,
-  .summary-status {
+  .summary-key {
     font-size: 0.72rem;
   }
 

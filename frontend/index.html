@@ -51,10 +51,6 @@
 
 <section class="quote-band">
   <div class="wrapper quote-band-inner">
-    <div class="quote-label">
-      <span>сократова цитата</span>
-      <button type="button" class="quote-next" id="quoteNext">другая</button>
-    </div>
     <blockquote class="quote" id="quote">
       <p class="quote-text"></p>
       <cite class="quote-author"></cite>
@@ -81,10 +77,6 @@
       <span class="summary-num">3</span>
       <span class="summary-key">проекта</span>
     </a>
-
-    <div class="summary-row">
-      <span class="summary-status status-live">идёт ремонт</span>
-    </div>
   </section>
 
   <section class="about panel">
@@ -215,7 +207,6 @@
   if (quoteEl && quotes.length) {
     const textEl = quoteEl.querySelector('.quote-text');
     const authorEl = quoteEl.querySelector('.quote-author');
-    const nextBtn = document.getElementById('quoteNext');
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const EVERY = 30000;
 
@@ -256,12 +247,10 @@
       timer = setInterval(swap, EVERY);
     };
 
-    const byHand = () => { swap(); restart(); };
-
     show();
     restart();
-    quoteEl.addEventListener('click', byHand);
-    if (nextBtn) nextBtn.addEventListener('click', byHand);
+    // по клику меняем вручную и отсчёт начинаем заново
+    quoteEl.addEventListener('click', () => { swap(); restart(); });
   }
 
   // ── Пузыри: быстро растут, лопаются и всплывают в новом месте ──

@@ -51,7 +51,10 @@
 
 <section class="quote-band">
   <div class="wrapper quote-band-inner">
-    <div class="quote-label">сократова цитата</div>
+    <div class="quote-label">
+      <span>сократова цитата</span>
+      <button type="button" class="quote-next" id="quoteNext">другая</button>
+    </div>
     <blockquote class="quote" id="quote">
       <p class="quote-text"></p>
       <cite class="quote-author"></cite>
@@ -207,31 +210,58 @@
     .slice(0, 3);
 
 
-  // ── Мысль: меняется раз в 30 секунд ──
+  // ── Сократова цитата: меняется сама раз в 30 секунд и по клику ──
   const quoteEl = document.getElementById('quote');
   if (quoteEl && quotes.length) {
     const textEl = quoteEl.querySelector('.quote-text');
     const authorEl = quoteEl.querySelector('.quote-author');
+    const nextBtn = document.getElementById('quoteNext');
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const EVERY = 30000;
+
     // стартуем со случайной, чтобы при каждом заходе было по-разному
     let i = Math.floor(Math.random() * quotes.length);
+    let busy = false;
+    let timer;
 
     const show = () => {
-      const q = quotes[i % quotes.length];
-      textEl.textContent = q.text;
-      authorEl.textContent = q.author;
+      textEl.textContent = quotes[i].text;
+      authorEl.textContent = quotes[i].author;
     };
-    show();
 
-    setInterval(() => {
-      i++;
+    // следующая — любая, кроме той, что висит сейчас
+    const pick = () => {
+      if (quotes.length < 2) return i;
+      let n;
+      do { n = Math.floor(Math.random() * quotes.length); } while (n === i);
+      return n;
+    };
+
+    const swap = () => {
+      if (busy) return;            // пока идёт затухание, клики не копим
+      i = pick();
       if (calm) { show(); return; }
+      busy = true;
       quoteEl.classList.add('is-swapping');
       setTimeout(() => {
         show();
         quoteEl.classList.remove('is-swapping');
+        busy = false;
       }, 320);
-    }, 30000);
+    };
+
+    // после ручной смены отсчёт начинается заново
+    const restart = () => {
+      clearInterval(timer);
+      timer = setInterval(swap, EVERY);
+    };
+
+    const byHand = () => { swap(); restart(); };
+
+    show();
+    restart();
+    quoteEl.addEventListener('click', byHand);
+    if (nextBtn) nextBtn.addEventListener('click', byHand);
   }
 
   // ── Пузыри: быстро растут, лопаются и всплывают в новом месте ──

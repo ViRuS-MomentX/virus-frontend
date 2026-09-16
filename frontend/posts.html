@@ -29,21 +29,34 @@
   </div>
 </div>
 
-<main class="wrapper channel">
-
-  <header class="ch-head">
-    <img class="ch-ava" src="images/филя.webp" alt="" width="44" height="44" decoding="async">
-    <div class="ch-who">
-      <h1 class="ch-name">Вирус</h1>
-      <p class="ch-sub"><span id="postsCount"></span><span class="ch-sub-tail"> в канале</span></p>
+<div class="page-head">
+  <div class="wrapper page-head-top">
+    <div class="page-title channel-title">
+      <img class="ch-ava" src="images/филя.webp" alt="" width="56" height="56" decoding="async">
+      <div>
+        <h1>Вирус</h1>
+        <p>Лента заметок: новости страницы, мысли и чэнджлоги.</p>
+      </div>
     </div>
-    <form class="ch-search" role="search" onsubmit="return false">
-      <input id="searchInput" type="search" placeholder="поиск" autocomplete="off" aria-label="Поиск по записям">
-    </form>
-  </header>
+    <div class="head-count" id="postsCount"></div>
+  </div>
 
+  <div class="wrapper">
+    <div class="controls">
+      <div class="row">
+        <div class="row-key">поиск</div>
+        <div class="row-val">
+          <div class="search-row">
+            <input id="searchInput" type="search" placeholder="искать по записям" autocomplete="off" aria-label="Поиск по записям">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="wrapper channel">
   <div class="ch-feed" id="postsFeed"></div>
-
 </main>
 
 <footer class="ft">

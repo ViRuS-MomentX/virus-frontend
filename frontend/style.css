@@ -1171,69 +1171,41 @@ body.posts-page {
   background-attachment: fixed;
 }
 
-.channel {
-  max-width: 820px;
-  padding-bottom: 3.5rem;
+/* Шапка «интерактива» — такая же полоса-заголовок, как в галерее и
+   проектах: притушённый снимок, крупный кондер-заголовок, моно-счётчик
+   справа и строка поиска в ритме «ключ → значение». Аватарка Фили и имя
+   оставляют намёк на канал, но живут внутри общей вёрстки сайта. */
+body.posts-page .page-head {
+  background-image:
+    linear-gradient(180deg, rgba(13, 17, 23, 0.84), rgba(13, 17, 23, 0.97)),
+    url("/images/interactive-bg.webp");
 }
 
-/* ── Шапка канала: аватарка, имя, счётчик записей, поиск ── */
-.ch-head {
-  position: sticky;
-  top: var(--topbar-h);
-  z-index: 40;
+/* заголовок канала: аватарка слева от имени и подписи */
+.channel-title {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  /* во всю ширину колонки, поля возвращаем своим padding */
-  margin-inline: calc(var(--gutter) * -1);
-  padding: 0.8rem var(--gutter);
-  border-bottom: 1px solid var(--rule);
-  background-color: var(--ink-2);
-  background-image:
-    linear-gradient(180deg, rgba(21, 27, 35, 0.9), rgba(21, 27, 35, 0.97)),
-    url("/images/interactive-bg.webp");
-  background-size: cover;
-  background-position: center;
+  gap: 1.1rem;
 }
 
 .ch-ava {
   flex: none;
-  width: 44px;
-  height: 44px;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
   border: 1px solid var(--rule);
   filter: saturate(0.85);
 }
 
-.ch-who {
-  min-width: 0;
+/* лента чуть у́же основной колонки — так текст читается как канал,
+   а не растягивается на всю ширину сайта */
+.channel {
+  max-width: 900px;
+  padding-bottom: 3.5rem;
 }
 
-.ch-name {
-  font-family: var(--cond);
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-
-.ch-sub {
-  font-size: 0.74rem;
-  line-height: 1.4;
-  color: var(--fg-faint);
-  font-feature-settings: 'zero' 1;
-}
-
-.ch-search {
-  margin-left: auto;
-  display: flex;
-  min-width: 0;
-}
-
-.ch-search #searchInput {
-  flex: 0 1 13rem;
-  padding: 0.38rem 0.6rem;
-  font-size: 0.8rem;
+body.posts-page .page-head .wrapper {
+  max-width: 900px;
 }
 
 /* ── Лента ── */
@@ -1665,42 +1637,14 @@ body.posts-page {
     padding-bottom: 1.5rem;
   }
 
-  /* верхняя панель на узких экранах переносится в две строки,
-     и липкая шапка канала уехала бы под неё — отпускаем её */
-  .ch-head {
-    position: static;
-    gap: 0.7rem;
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-  }
-
+  /* аватарка канала на телефоне поменьше */
   .ch-ava {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
   }
 
-  .ch-name {
-    font-size: 1rem;
-  }
-
-  /* «в канале» съедает место, которое нужнее поиску */
-  .ch-sub-tail {
-    display: none;
-  }
-
-  .ch-sub {
-    white-space: nowrap;
-  }
-
-  .ch-search {
-    min-width: 0;
-  }
-
-  .ch-search #searchInput {
-    flex: 1 1 6rem;
-    min-width: 3.5rem;
-    padding: 0.35rem 0.5rem;
-    font-size: 0.76rem;
+  .channel-title {
+    gap: 0.8rem;
   }
 
   .page-title h1 {

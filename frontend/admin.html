@@ -52,6 +52,19 @@
     #refresh-btn { width: auto; padding: 8px 16px; }
     #hidden-content { display: none; }
     #status { color: #8b949e; font-size: 13px; margin-bottom: 12px; }
+    #summary { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .card {
+      flex: 1 1 240px;
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .card h2 { font-size: 12px; color: #8b949e; font-weight: 600; margin: 0 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+    .card ul { list-style: none; margin: 0; padding: 0; }
+    .card li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; font-size: 13px; }
+    .card li b { color: #e3b341; font-variant-numeric: tabular-nums; }
+    .card li span { color: #c9d1d9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -67,11 +80,12 @@
       <button id="refresh-btn" onclick="loadVisits()">Обновить</button>
     </div>
     <div id="status"></div>
+    <div id="summary"></div>
     <table>
       <thead>
         <tr>
           <th>Время</th><th>IP</th><th>Страна</th><th>Регион</th><th>Город</th>
-          <th>Устройство</th><th>ОС</th><th>Браузер</th><th>Страница</th>
+          <th>Источник</th><th>Язык</th><th>Устройство</th><th>ОС</th><th>Браузер</th><th>Страница</th>
         </tr>
       </thead>
       <tbody id="visits-body"></tbody>
@@ -114,13 +128,44 @@
           '<td>' + countryFlag(v.country) + ' ' + escapeHtml(v.country) + '</td>' +
           '<td>' + escapeHtml(v.region) + '</td>' +
           '<td>' + escapeHtml(v.city) + '</td>' +
+          '<td>' + escapeHtml(v.source) + '</td>' +
+          '<td>' + escapeHtml(v.lang) + '</td>' +
           '<td>' + escapeHtml(v.device) + '</td>' +
           '<td>' + escapeHtml(v.os) + '</td>' +
           '<td>' + escapeHtml(v.browser) + '</td>' +
           '<td>' + escapeHtml(v.page) + '</td>';
         body.appendChild(tr);
       });
+      renderSummary(visits);
       document.getElementById('status').textContent = 'Всего записей: ' + visits.length;
+    }
+
+    // Считаем, сколько визитов пришло с каждого источника и на каком языке.
+    function tally(visits, key, fallback) {
+      var counts = {};
+      visits.forEach(function (v) {
+        var val = v[key] || fallback;
+        counts[val] = (counts[val] || 0) + 1;
+      });
+      return Object.keys(counts)
+        .map(function (k) { return { label: k, n: counts[k] }; })
+        .sort(function (a, b) { return b.n - a.n; });
+    }
+
+    function cardHtml(title, rows) {
+      var items = rows.map(function (r) {
+        return '<li><span>' + escapeHtml(r.label) + '</span><b>' + r.n + '</b></li>';
+      }).join('');
+      return '<div class="card"><h2>' + title + '</h2><ul>' + (items || '<li><span>—</span></li>') + '</ul></div>';
+    }
+
+    function renderSummary(visits) {
+      var box = document.getElementById('summary');
+      if (!visits.length) { box.innerHTML = ''; return; }
+      box.innerHTML =
+        cardHtml('Источники', tally(visits, 'source', 'Прямой')) +
+        cardHtml('Языки', tally(visits, 'lang', '—')) +
+        cardHtml('Устройства', tally(visits, 'device', '—'));
     }
 
     function loadVisits() {

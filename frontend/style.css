@@ -1349,6 +1349,21 @@ body.posts-page {
   filter: saturate(1);
 }
 
+/* ссылка внутри записи: длинный адрес переносится, а не распирает пузырь */
+.ch-link {
+  color: var(--steel);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.18em;
+  overflow-wrap: anywhere;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.ch-link:hover {
+  color: var(--amber);
+  text-decoration-color: var(--amber);
+}
+
 .ch-meta {
   display: flex;
   align-items: baseline;

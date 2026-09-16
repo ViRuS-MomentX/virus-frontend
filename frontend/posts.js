@@ -35,6 +35,11 @@ function escapeHtml(str){
   return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// для значений атрибутов кавычки тоже нельзя оставлять как есть
+function escapeAttr(str){
+  return escapeHtml(str).replace(/"/g, "&quot;");
+}
+
 function escapeRegExp(str){
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -44,6 +49,32 @@ function highlight(text, query){
   if(!query) return safe;
   const re = new RegExp(escapeRegExp(query), "gi");
   return safe.replace(re, (match) => `<mark>${match}</mark>`);
+}
+
+// Ссылки в тексте записи. Берём только http и https — гадать по точкам
+// в обычном тексте себе дороже. Хвостовая пунктуация в адрес не входит:
+// после «зайди на https://site.ru.» точка остаётся точкой.
+const LINK_RE = /https?:\/\/[^\s<]+[^\s<.,!?;:)\]}"']/g;
+
+// в самой ссылке «https://» только мешает читать
+function linkLabel(url){
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
+
+// Текст собираем кусками: подсветку поиска пускаем по видимому тексту,
+// а в href она попасть не может — иначе <mark> разорвал бы адрес.
+function withLinks(text, query){
+  let out = "";
+  let last = 0;
+
+  for (const m of text.matchAll(LINK_RE)) {
+    out += highlight(text.slice(last, m.index), query);
+    out += `<a class="ch-link" href="${escapeAttr(m[0])}" target="_blank" rel="noopener noreferrer">` +
+      `${highlight(linkLabel(m[0]), query)}</a>`;
+    last = m.index + m[0].length;
+  }
+
+  return out + highlight(text.slice(last), query);
 }
 
 function render(){
@@ -87,8 +118,8 @@ function render(){
     html += `
       <article class="ch-msg">
         ${title ? `<h2 class="ch-title">${highlight(title, rawQuery)}</h2>` : ""}
-        ${p.image ? `<div class="ch-photo post-image-wrap"><img class="post-image" src="${escapeHtml(p.image)}" loading="lazy" decoding="async" alt="${escapeHtml(title || "Фото к записи")}"></div>` : ""}
-        ${p.text ? `<div class="ch-text">${highlight(p.text, rawQuery)}</div>` : ""}
+        ${p.image ? `<div class="ch-photo post-image-wrap"><img class="post-image" src="${escapeAttr(p.image)}" loading="lazy" decoding="async" alt="${escapeAttr(title || "Фото к записи")}"></div>` : ""}
+        ${p.text ? `<div class="ch-text">${withLinks(p.text, rawQuery)}</div>` : ""}
         <footer class="ch-meta">${tag}<time class="ch-time">${escapeHtml(p.time)}</time></footer>
       </article>`;
   }

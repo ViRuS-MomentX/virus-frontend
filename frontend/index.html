@@ -74,8 +74,8 @@
     </a>
 
     <a class="summary-row" href="projects.html">
-      <span class="summary-num">3</span>
-      <span class="summary-key">проекта</span>
+      <span class="summary-num" id="projectCount">3</span>
+      <span class="summary-key" id="projectWord">проекта</span>
     </a>
   </section>
 
@@ -186,12 +186,25 @@
   import { posts } from './posts-data.js';
   import { galleryData } from './gallery-data.js';
   import { quotes } from './quotes.js';
+  import { projects } from './projects-data.js';
 
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // числа берём из тех же данных, что и сами страницы, чтобы не расходились
   document.getElementById('photoCount').textContent = galleryData.length;
   document.getElementById('postCount').textContent = posts.length;
+
+  // проекты: число и подпись держим в согласии с данными
+  (function () {
+    const n = projects.length;
+    const a = n % 100, b = n % 10;
+    const word = a > 10 && a < 20 ? 'проектов'
+      : b === 1 ? 'проект' : b > 1 && b < 5 ? 'проекта' : 'проектов';
+    const numEl = document.getElementById('projectCount');
+    const wordEl = document.getElementById('projectWord');
+    if (numEl) numEl.textContent = n;
+    if (wordEl) wordEl.textContent = word;
+  })();
 
   const LABELS = { personal: 'личное', game: 'игра', ai: 'нейронки' };
   const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

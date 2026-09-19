@@ -29,7 +29,7 @@ export const projects = [
       'Захотел позалипать в войсе, глянуть новости страницы первым или просто потупить — заходи, сервер открытый.',
     ],
     note: 'Тут я живу чаще, чем на самом сайте.',
-    links: [{ label: 'зайти на сервер', href: 'https://discord.gg/NxeMW7zzTa' }],
+    links: [{ label: 'зайти на сервер', href: 'https://discord.gg/bNdxCWZy3H' }],
   },
   {
     id: 'discord-bot',

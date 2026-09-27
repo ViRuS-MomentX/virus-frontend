@@ -223,6 +223,6 @@ export const posts = [
     date: "2026-09-27",
     time: "14:24",
     text: "Плагин на мечи дорос до своего имени: теперь он VirusSwords, а команда — /virusswords. 27 клинков, пять святилищ, шесть родословных и Claude в роли Альтрона. Всё расписано в вики: https://virus-momentx.github.io/wiki-virus-swords/",
-    image: "images/virusswords-wiki.webp"
+    image: "images/википедия.jpg"
   },
 ];

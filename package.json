@@ -1,19 +1,10 @@
 {
-  "name": "frontend",
+  "name": "virus-frontend",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite frontend",
-    "build": "vite build frontend",
-    "preview": "vite preview frontend",
-    "thumbs": "node frontend/tools/make-thumbs.mjs"
-  },
-  "dependencies": {
-    "@vercel/analytics": "^1.5.0"
-  },
-  "devDependencies": {
-    "sharp": "^0.35.4",
-    "vite": "^5.0.0"
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start",
+    "thumbs": "npm --prefix frontend run thumbs"
   }
 }

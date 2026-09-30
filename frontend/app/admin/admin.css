@@ -1,0 +1,61 @@
+/* Админка живёт в своём оформлении, в духе гитхаба, и не пересекается
+   со стилями сайта — всё здесь внутри .admin-page. */
+
+.admin-page {
+  flex: 1;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: normal;
+  background: #0d1117;
+  color: #c9d1d9;
+  padding: 24px;
+}
+.admin-page h1 { font-size: 20px; margin-bottom: 16px; }
+.admin-page #login-box {
+  max-width: 320px;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.admin-page #login-box input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #30363d;
+  background: #161b22;
+  color: #c9d1d9;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.admin-page #login-box button, .admin-page #refresh-btn {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #238636;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+.admin-page #login-box button:hover, .admin-page #refresh-btn:hover { background: #2ea043; }
+.admin-page #error-msg { color: #f85149; font-size: 13px; margin-top: 8px; min-height: 16px; }
+.admin-page table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.admin-page th, .admin-page td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+.admin-page th { color: #8b949e; font-weight: 600; }
+.admin-page tr:hover { background: #161b22; }
+.admin-page #toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.admin-page #refresh-btn { width: auto; padding: 8px 16px; }
+.admin-page #status { color: #8b949e; font-size: 13px; margin-bottom: 12px; }
+.admin-page #summary { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.admin-page .card {
+  flex: 1 1 240px;
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.admin-page .card h2 { font-size: 12px; color: #8b949e; font-weight: 600; margin: 0 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+.admin-page .card ul { list-style: none; margin: 0; padding: 0; }
+.admin-page .card li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; font-size: 13px; }
+.admin-page .card li b { color: #e3b341; font-variant-numeric: tabular-nums; }
+.admin-page .card li span { color: #c9d1d9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

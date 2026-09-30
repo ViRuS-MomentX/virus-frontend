@@ -649,13 +649,13 @@ a.summary-row:hover .summary-num {
 }
 
 /* фоновые снимки — только полосой под шапкой, сильно притушены */
-body.gallery-page .page-head {
+.gallery-page .page-head {
   background-image:
     linear-gradient(180deg, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.97)),
     url("/images/gallery-bg.webp");
 }
 
-body.projects-page .page-head {
+.projects-page .page-head {
   background-image:
     linear-gradient(180deg, rgba(13, 17, 23, 0.84), rgba(13, 17, 23, 0.97)),
     url("/images/projects-bg.webp");
@@ -1180,7 +1180,7 @@ mark {
 
 /* Обои под лентой: та же сетка, что и на главной, только тоньше и тайлом
    по всей странице. Фон закреплён — лента едет, обои стоят, как в мессенджере. */
-body.posts-page {
+body:has(.posts-page) {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg stroke='%23ffffff' fill='none' stroke-width='1'%3E%3Cpath opacity='0.05' d='M0 0V48M0 0H64'/%3E%3Cpath opacity='0.03' stroke-dasharray='2 3' d='M32 0V48M0 24H64'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 64px 48px;
   background-repeat: repeat;
@@ -1191,7 +1191,7 @@ body.posts-page {
    проектах: притушённый снимок, крупный кондер-заголовок, моно-счётчик
    справа и строка поиска в ритме «ключ → значение». Аватарка Фили и имя
    оставляют намёк на канал, но живут внутри общей вёрстки сайта. */
-body.posts-page .page-head {
+.posts-page .page-head {
   background-image:
     linear-gradient(180deg, rgba(13, 17, 23, 0.84), rgba(13, 17, 23, 0.97)),
     url("/images/interactive-bg.webp");
@@ -1220,7 +1220,7 @@ body.posts-page .page-head {
   padding-bottom: 3.5rem;
 }
 
-body.posts-page .page-head .wrapper {
+.posts-page .page-head .wrapper {
   max-width: 900px;
 }
 
@@ -1704,4 +1704,10 @@ body.posts-page .page-head .wrapper {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Обёртка страницы нужна только ради класса (.gallery-page и т. п.) —
+   в раскладке её быть не должно, иначе body перестанет прижимать подвал к низу. */
+.page {
+  display: contents;
 }

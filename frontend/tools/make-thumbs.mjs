@@ -14,7 +14,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { galleryData } from '../gallery-data.js';
+import { galleryData } from '../data/gallery-data.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const IMAGES = path.join(HERE, '..', 'public', 'images');

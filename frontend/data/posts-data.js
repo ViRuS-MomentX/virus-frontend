@@ -225,4 +225,11 @@ export const posts = [
     text: "Плагин на мечи дорос до своего имени: теперь он VirusSwords, а команда — /virusswords. 27 клинков, пять святилищ, шесть родословных и Claude в роли Альтрона. Всё расписано в вики: https://virus-momentx.github.io/wiki-virus-swords/",
     image: "images/википедия.jpg"
   },
+    {
+    title: "Время, Доктор Фримен?",
+    date: "2026-10-03",
+    time: "23:11",
+    text: "Добавлю тайм-стопы в плагин",
+    image: "images/тайм.jpg"
+  },
 ];

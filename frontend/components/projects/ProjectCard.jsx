@@ -82,6 +82,20 @@ export default function ProjectCard({ project: p }) {
           <div key={k} className="p-fact"><dt>{k}</dt><dd>{v}</dd></div>
         ))}
       </dl>
+      {/* ролик проекта: грузится только по нажатию, обложка — кадр из него */}
+      {p.video && (
+        <figure className="p-video">
+          <video
+            src={asset(p.video.src)}
+            poster={asset(p.video.poster)}
+            controls
+            playsInline
+            preload="none"
+            aria-label={p.video.label}
+          />
+          <figcaption>{p.video.label}</figcaption>
+        </figure>
+      )}
       <div className="p-body">
         {p.lines.map((t, i) => <p key={i}>{t}</p>)}
         {p.note && <p className="p-note">{p.note}</p>}

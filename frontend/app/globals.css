@@ -1127,6 +1127,26 @@ mark {
   color: var(--fg-faint);
 }
 
+.p-video {
+  margin: 0 0 1.1rem;
+  border: 1px solid var(--rule);
+  background: var(--ink);
+}
+
+.p-video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+}
+
+.p-video figcaption {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.78rem;
+  color: var(--fg-faint);
+  border-top: 1px solid var(--rule-soft);
+}
+
 .p-body p {
   font-family: var(--sans);
   color: var(--fg-dim);

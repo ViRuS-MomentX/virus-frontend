@@ -17,6 +17,11 @@ export const projects = [
       'Сюжет не планировался, но тем не менее имеется, когда нибудь плагин выйдет в релиз, а вообще ищу тестеров.',
       'Небо, огонь и земля или ночь, бездна и технологии?',
     ],
+    video: {
+      src: 'videos/virusswords-trailer.mp4',
+      poster: 'images/virusswords-trailer.webp',
+      label: 'Трейлер: боссы VirusSwords',
+    },
     note: 'Имеется своя википедия.',
     links: [{ label: 'вики плагина', href: 'https://virus-momentx.github.io/wiki-virus-swords/' }],
   },

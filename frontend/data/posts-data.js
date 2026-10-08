@@ -251,6 +251,6 @@ export const posts = [
     date: "2026-10-08",
     time: "14:02",
     text: "Готовность плагина 80%, тестировщики (мученики) найдены, осталось пару структур подобавлять и решить проблему баланса",
-    image: "images/virusswords-trailer.webp"
+    image: "images/остров.jpg"
   },
 ];

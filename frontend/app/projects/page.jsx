@@ -20,7 +20,7 @@ export default function ProjectsPage() {
         <div className="wrapper page-head-top">
           <div className="page-title">
             <h1>Проекты</h1>
-            <p>Создам вам чудо за 100 рублей, писать в тг.</p>
+            <p>Создам вам чудо за 100 рублей, писать в ТГ.</p>
           </div>
           {/* счётчик в шапке держим в согласии с данными */}
           <div className="head-count">{n} {plural(n, 'штука', 'штуки', 'штук')}</div>

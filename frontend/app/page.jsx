@@ -104,7 +104,7 @@ export default function HomePage() {
           </p>
 
           <p>
-            Это информативный уголок по сайту: В наличии библиотека сотни с лишним
+            Это информативный уголок по сайту: в наличии библиотека из сотни с лишним
             скриншотов, у каждого своя подпись; пара ботов и майн-сервер, который всё
             никак не доедет до релиза; и лента, куда падает остальное — новости
             страницы, мысли и чэнджлоги.
@@ -112,7 +112,7 @@ export default function HomePage() {
 
           <p>
             Всё делал сам, ни одна нейросеть не помогала. Снизу список
-            друзей которые принимали участие в разработке сайта.
+            друзей, которые принимали участие в разработке сайта.
           </p>
 
           <div className="about-list">
@@ -122,16 +122,16 @@ export default function HomePage() {
             </Link>
             <Link className="about-item" href="/projects">
               <span className="about-item-name">Проекты</span>
-              <span className="about-item-note">Бот от дипсика, бот от фанстат и участник нн сервера</span>
+              <span className="about-item-note">Бот от Дипсика, бот от Фанстата и участник НН-сервера</span>
             </Link>
             <Link className="about-item" href="/posts">
               <span className="about-item-name">Интерактив</span>
-              <span className="about-item-note">лента заметок: грязь, грязище, дипсик</span>
+              <span className="about-item-note">лента заметок: грязь, грязище, Дипсик</span>
             </Link>
           </div>
 
           <p className="about-foot">
-            Нужен бот, сервер или бездарь - 100 рублей, писать
+            Нужен бот, сервер или бездарь — 100 рублей, писать
             в <a href="https://t.me/IAmVirus" target="_blank" rel="noopener">телеграм</a>
             {' '}или <a href="https://discord.com/users/573196687481372675" target="_blank" rel="noopener">дискорд</a>.
           </p>

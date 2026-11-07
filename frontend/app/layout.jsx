@@ -4,7 +4,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'Вирус',
-  description: 'Страница Вируса: 117 скриншотов с подписями, три проекта и лента заметок.',
+  description: 'Страница Вируса: проекты и лента заметок.',
   icons: {
     icon: [
       { url: '/icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },

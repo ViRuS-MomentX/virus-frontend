@@ -1,5 +1,7 @@
-// Данные галереи. Отдельный модуль без побочных эффектов —
-// его импортируют и сама галерея, и счётчик на главной.
+// Данные галереи. Вкладку «галерея» убрали с сайта (ноябрь 2026), но массив,
+// сами снимки (public/images), превью (public/images/thumbs), компонент
+// components/gallery/Gallery.jsx и npm run thumbs оставлены — чтобы галерею
+// можно было вернуть, достаточно снова завести страницу app/gallery/page.jsx.
 export const galleryData = [
   { name:'images/фух.jpg', comment:'Хардкор не прощает ошибок', game:'minecraft' },
   { name:'images/только не в жопу.jpg', comment:'Только не в дырку', game:'rivals' },

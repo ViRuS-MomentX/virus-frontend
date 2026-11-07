@@ -1,16 +1,17 @@
 'use client';
 
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import Lightbox from '../Lightbox';
-import { posts } from '../../data/posts-data';
-import { Highlight, asset, plural } from '../../lib/text';
-
-const TAGS = { personal: 'личное', game: 'игра', ai: 'нейронки' };
+import Message from './Message';
+import { sortedPosts, newestStamp } from '../../lib/posts';
+import { useNewSince, isNewPost, useShare, useHashTarget } from '../../lib/feed-hooks';
+import { plural } from '../../lib/text';
 
 // день для разделителя: сегодня и вчера подписываем словами.
 // today нет, пока страница не ожила в браузере, — тогда пишем просто дату,
 // иначе в собранной заранее странице «сегодня» навсегда застряло бы в дне сборки
-function dayLabel(date, today) {
+export function dayLabel(date, today) {
   const d = new Date(date + 'T00:00');
   const opts = { day: 'numeric', month: 'long' };
   if (today) {
@@ -24,42 +25,14 @@ function dayLabel(date, today) {
 
 const norm = str => (str || '').toLowerCase().trim();
 
-// Ссылки в тексте записи. Берём только http и https — гадать по точкам
-// в обычном тексте себе дороже. Хвостовая пунктуация в адрес не входит:
-// после «зайди на https://site.ru.» точка остаётся точкой.
-const LINK_RE = /https?:\/\/[^\s<]+[^\s<.,!?;:)\]}"']/g;
-
-// в самой ссылке «https://» только мешает читать
-const linkLabel = url => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
-
-// Текст собираем кусками: подсветку поиска пускаем по видимому тексту,
-// а в href она попасть не может — иначе <mark> разорвал бы адрес.
-function WithLinks({ text, query }) {
-  const out = [];
-  let last = 0;
-
-  for (const m of text.matchAll(LINK_RE)) {
-    out.push(<Highlight key={out.length} text={text.slice(last, m.index)} query={query} />);
-    out.push(
-      <a key={out.length} className="ch-link" href={m[0]} target="_blank" rel="noopener noreferrer">
-        <Highlight text={linkLabel(m[0])} query={query} />
-      </a>
-    );
-    last = m.index + m[0].length;
-  }
-
-  out.push(<Highlight key={out.length} text={text.slice(last)} query={query} />);
-  return out;
-}
-
-const sorted = [...posts].sort(
-  (a, b) => new Date(b.date + 'T' + b.time) - new Date(a.date + 'T' + a.time)
-);
-
 export default function Feed() {
   const [rawQuery, setRawQuery] = useState('');
   const [today, setToday] = useState(null);
-  const [lightbox, setLightbox] = useState({ open: false, src: null });
+  const [lightbox, setLightbox] = useState({ open: false, items: [], index: 0, caption: '' });
+
+  const since = useNewSince(newestStamp);
+  const [shareState, share] = useShare();
+  const [target] = useHashTarget();
 
   useEffect(() => {
     const t = new Date();
@@ -72,13 +45,21 @@ export default function Feed() {
 
   const list = useMemo(() => (
     query
-      ? sorted.filter(p => norm(p.title).includes(query) || norm(p.text).includes(query))
-      : sorted
+      ? sortedPosts.filter(p => norm(p.title).includes(query) || norm(p.text).includes(query))
+      : sortedPosts
   ), [query]);
 
+  const fresh = since ? sortedPosts.filter(p => isNewPost(p, since)).length : 0;
+
   const close = useCallback(() => setLightbox(l => ({ ...l, open: false })), []);
+  const setIndex = useCallback(index => setLightbox(l => ({ ...l, index })), []);
+  const open = useCallback((post, index) => {
+    setLightbox({ open: true, items: post.images, index, caption: post.title });
+  }, []);
 
   let lastDay = null;
+  // черта «дальше уже видел» — после последней новой записи
+  let markerDone = !fresh || Boolean(query);
 
   return (
     <>
@@ -94,6 +75,7 @@ export default function Feed() {
           </div>
           <div className="head-count">
             {list.length} {plural(list.length, 'запись', 'записи', 'записей')}
+            {fresh > 0 && <span className="head-new"> · {fresh} {plural(fresh, 'новая', 'новые', 'новых')}</span>}
           </div>
         </div>
 
@@ -112,6 +94,7 @@ export default function Feed() {
                     value={rawQuery}
                     onChange={e => setRawQuery(e.target.value)}
                   />
+                  <Link className="ver-switch" href="/v2/posts">новый вид →</Link>
                 </div>
               </div>
             </div>
@@ -125,36 +108,45 @@ export default function Feed() {
             <div className="ch-empty">По запросу ничего нет. Попробуй другое слово или очисти поиск.</div>
           )}
 
-          {list.map((p, i) => {
+          {list.map(p => {
             // разделитель дня, как в мессенджере
             const newDay = p.date !== lastDay;
             lastDay = p.date;
-            const title = (p.title || '').trim();
+            const isNew = isNewPost(p, since);
+
+            let marker = null;
+            if (!markerDone && !isNew) {
+              markerDone = true;
+              marker = <div className="ch-seen"><span>новое с прошлого визита ↑</span></div>;
+            }
 
             return (
-              <Fragment key={p.date + p.time + i}>
+              <Fragment key={p.id}>
+                {marker}
                 {newDay && <div className="ch-day"><span>{dayLabel(p.date, today)}</span></div>}
-                <article className="ch-msg">
-                  {title && <h2 className="ch-title"><Highlight text={title} query={trimmed} /></h2>}
-                  {p.image && (
-                    <div className="ch-photo post-image-wrap" onClick={() => setLightbox({ open: true, src: asset(p.image) })}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img className="post-image" src={asset(p.image)} loading="lazy" decoding="async" alt={title || 'Фото к записи'} />
-                    </div>
-                  )}
-                  {p.text && <div className="ch-text"><WithLinks text={p.text} query={trimmed} /></div>}
-                  <footer className="ch-meta">
-                    {p.category && <span className="ch-tag">#{TAGS[p.category] || p.category}</span>}
-                    <time className="ch-time">{p.time}</time>
-                  </footer>
-                </article>
+                <Message
+                  post={p}
+                  query={trimmed}
+                  isNew={isNew}
+                  isTarget={target === p.id}
+                  shared={shareState.id === p.id ? shareState.result : null}
+                  onShare={share}
+                  onOpen={open}
+                />
               </Fragment>
             );
           })}
         </div>
       </main>
 
-      <Lightbox open={lightbox.open} src={lightbox.src} onClose={close} />
+      <Lightbox
+        open={lightbox.open}
+        items={lightbox.items}
+        index={lightbox.index}
+        onIndex={setIndex}
+        caption={lightbox.caption}
+        onClose={close}
+      />
     </>
   );
 }

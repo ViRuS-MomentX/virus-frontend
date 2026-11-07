@@ -1,6 +1,6 @@
 'use client';
 
-// Лайтбокс, общий для галереи и ленты.
+// Лайтбокс, общий для ленты (и архивной галереи).
 // По умолчанию снимок вписан в экран; клик увеличивает его к той точке,
 // по которой кликнули, повторный клик возвращает.
 
@@ -12,8 +12,13 @@ import { useEffect, useRef, useState } from 'react';
 const MIN_SCALE = 1.9;
 
 // open — показан ли лайтбокс; src — снимок (пустой — показываем заглушку).
-export default function Lightbox({ open, src, caption, onClose }) {
+// Для альбома вместо src передаются items (все снимки), index и onIndex:
+// тогда появляются стрелки, счётчик, листание клавишами ← → и свайпом.
+export default function Lightbox({ open, src: single, caption, onClose, items, index = 0, onIndex }) {
+  const many = Array.isArray(items) && items.length > 1;
+  const src = Array.isArray(items) ? items[index] : single;
   const boxRef = useRef(null);
+  const swipe = useRef(null);
   const imgRef = useRef(null);
   const [zoomWidth, setZoomWidth] = useState(null);
   const focus = useRef(null);
@@ -27,14 +32,37 @@ export default function Lightbox({ open, src, caption, onClose }) {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = e => { if (e.key === 'Escape') onClose(); };
+    const onKey = e => {
+      if (e.key === 'Escape') onClose();
+      if (!many) return;
+      if (e.key === 'ArrowRight') onIndex((index + 1) % items.length);
+      if (e.key === 'ArrowLeft') onIndex((index - 1 + items.length) % items.length);
+    };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
-  }, [open, onClose]);
+  }, [open, onClose, many, index, items, onIndex]);
+
+  const step = d => onIndex((index + d + items.length) % items.length);
+
+  // свайп листает, только пока снимок не увеличен — увеличенный надо двигать
+  function onTouchStart(e) {
+    if (!many || zoomWidth != null) return;
+    const t = e.touches[0];
+    swipe.current = { x: t.clientX, y: t.clientY };
+  }
+
+  function onTouchEnd(e) {
+    const start = swipe.current;
+    swipe.current = null;
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x, dy = t.clientY - start.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1);
+  }
 
   // после перераскладки подводим прокрутку так, чтобы та же точка
   // оказалась в центре окна
@@ -79,8 +107,16 @@ export default function Lightbox({ open, src, caption, onClose }) {
       ref={boxRef}
       className={className || undefined}
       onClick={e => { if (e.target === boxRef.current) onClose(); }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <span className="close-btn" onClick={e => { e.stopPropagation(); onClose(); }}>&times;</span>
+      {many && open && zoomWidth == null && (
+        <>
+          <button type="button" className="lb-nav is-prev" aria-label="Предыдущее фото" onClick={e => { e.stopPropagation(); step(-1); }}>‹</button>
+          <button type="button" className="lb-nav is-next" aria-label="Следующее фото" onClick={e => { e.stopPropagation(); step(1); }}>›</button>
+        </>
+      )}
       <div className="lightbox-content">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -95,7 +131,12 @@ export default function Lightbox({ open, src, caption, onClose }) {
         ) : (
           open && <div className="placeholder-text">Фото отсутствует</div>
         )}
-        {caption && <div className="lightbox-comment">{caption}</div>}
+        {(caption || many) && (
+          <div className="lightbox-comment">
+            {many && <span className="lb-count">{index + 1} / {items.length}</span>}
+            {caption}
+          </div>
+        )}
       </div>
     </div>
   );

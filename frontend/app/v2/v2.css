@@ -1,14 +1,8 @@
 /* ═══════════════════════════════════════════
    v2 — «журнал»: вторая версия ленты.
    Та же палитра, шрифты и прямые углы, что у всего сайта,
-   но вместо пузырей мессенджера — линия времени и боковая панель.
+   но вместо пузырей мессенджера — плитка записей. Фон только в шапке.
    ═══════════════════════════════════════════ */
-
-body:has(.journal-page) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='48'%3E%3Cg stroke='%23ffffff' fill='none' stroke-width='1'%3E%3Cpath opacity='0.04' d='M0 0V48M0 0H64'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 64px 48px;
-  background-attachment: fixed;
-}
 
 /* ── Шапка ── */
 .j-hero {
@@ -113,46 +107,28 @@ body:has(.journal-page) {
   color: var(--amber);
 }
 
-/* ── Раскладка: панель слева, журнал справа ── */
-.j-layout {
-  display: grid;
-  grid-template-columns: 15.5rem minmax(0, 1fr);
-  gap: 2.75rem;
-  padding-top: 2rem;
+/* ── Панель над плиткой: поиск, счётчик, ссылка на старый вид ── */
+.j-main {
+  padding-top: 1.75rem;
   padding-bottom: 4rem;
 }
 
-.j-side {
-  position: sticky;
-  top: calc(var(--topbar-h) + 1.25rem);
-  align-self: start;
-  max-height: calc(100vh - var(--topbar-h) - 2.5rem);
-  overflow-y: auto;
-  scrollbar-width: thin;
+.j-toolbar {
   display: flex;
-  flex-direction: column;
-  gap: 1.35rem;
-  padding-right: 0.25rem;
-}
-
-.j-label {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--fg-faint);
-  margin-bottom: 0.45rem;
-}
-
-.j-label::before {
-  content: '// ';
-  color: var(--amber);
-  opacity: 0.6;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.1rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule-soft);
 }
 
 .j-search {
-  width: 100%;
-  padding: 0.5rem 0.7rem;
+  flex: 0 1 24rem;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
   font-family: var(--mono);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--fg);
   background: var(--ink-2);
   border: 1px solid var(--rule);
@@ -163,158 +139,16 @@ body:has(.journal-page) {
 .j-search::placeholder { color: var(--fg-faint); }
 .j-search:focus { border-color: var(--amber); }
 
-/* переключатель вида */
-.j-seg {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--rule);
-}
-
-.j-seg button,
-.j-chip,
-.j-archive button,
-.j-random,
-.j-reset,
-.j-btn {
-  font-family: var(--mono);
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-}
-
-.j-seg button {
-  padding: 0.45rem 0.5rem;
-  font-size: 0.8rem;
-  color: var(--fg-dim);
-  background: none;
-  border: none;
-}
-
-.j-seg button + button { border-left: 1px solid var(--rule); }
-.j-seg button:hover { color: var(--fg); }
-
-.j-seg button.on {
-  color: var(--ink);
-  background: var(--amber);
-}
-
-.j-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.j-chip {
-  padding: 0.22rem 0.6rem;
-  font-size: 0.76rem;
-  color: var(--fg-dim);
-  background: none;
-  border: 1px solid var(--rule);
-}
-
-.j-chip:hover { color: var(--fg); border-color: var(--fg-faint); }
-.j-chip.is-new { color: var(--amber); border-color: rgba(226, 160, 63, 0.45); }
-
-.j-chip.on {
-  color: var(--ink);
-  background: var(--amber);
-  border-color: var(--amber);
-}
-
-/* архив по месяцам */
-.j-archive ul {
-  list-style: none;
-  border-left: 1px solid var(--rule);
-}
-
-.j-archive button {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 0.22rem 0 0.22rem 0.8rem;
-  margin-left: -1px;
-  font-size: 0.8rem;
-  text-align: left;
-  color: var(--fg-dim);
-  background: none;
-  border: none;
-  border-left: 2px solid transparent;
-}
-
-.j-archive button:hover { color: var(--fg); }
-
-.j-archive button.on {
-  color: var(--amber);
-  border-left-color: var(--amber);
-}
-
-.j-m-n {
+.j-status {
+  font-size: 0.78rem;
   color: var(--fg-faint);
-  font-feature-settings: 'zero' 1;
-}
-
-.j-m-short { display: none; }
-
-.j-random {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 0.82rem;
-  color: var(--fg);
-  background: var(--ink-2);
-  border: 1px dashed var(--rule);
-}
-
-.j-random:hover { color: var(--amber); border-color: var(--amber); }
-
-.j-keys {
-  margin-top: 0.7rem;
-  font-size: 0.7rem;
-  line-height: 1.9;
-  color: var(--fg-faint);
-}
-
-kbd {
-  display: inline-block;
-  min-width: 1.3rem;
-  padding: 0 0.3rem;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  line-height: 1.25rem;
-  text-align: center;
-  color: var(--fg-dim);
-  border: 1px solid var(--rule);
-  border-bottom-width: 2px;
 }
 
 .j-old {
-  display: inline-block;
-  margin-top: 0.8rem;
-  font-size: 0.76rem;
+  margin-left: auto;
+  font-size: 0.78rem;
   color: var(--fg-dim);
 }
-
-/* ── Строка состояния над журналом ── */
-.j-status {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  padding-bottom: 0.9rem;
-  margin-bottom: 0.4rem;
-  font-size: 0.78rem;
-  color: var(--fg-faint);
-  border-bottom: 1px solid var(--rule-soft);
-}
-
-.j-reset {
-  padding: 0;
-  font-size: 0.78rem;
-  color: var(--steel);
-  background: none;
-  border: none;
-  border-bottom: 1px dashed currentColor;
-}
-
-.j-reset:hover { color: var(--amber); }
 
 .j-empty {
   padding: 3rem 0;
@@ -519,6 +353,9 @@ kbd {
 
 .j-btn {
   display: inline-block;
+  font-family: var(--mono);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
   padding: 0.18rem 0.6rem;
   font-size: 0.74rem;
   color: var(--fg-dim);
@@ -559,7 +396,6 @@ kbd {
 
 .j-tile {
   position: relative;
-  display: block;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -580,6 +416,14 @@ kbd {
 }
 
 .j-tile.is-new { border-color: rgba(226, 160, 63, 0.6); }
+
+.j-tile:hover { color: inherit; }
+
+.j-tile { scroll-margin-top: calc(var(--topbar-h) + 1.25rem); }
+
+.j-tile.is-target {
+  animation: j-target 2.4s ease-out 1;
+}
 
 .j-tile img {
   width: 100%;
@@ -676,64 +520,6 @@ kbd {
 }
 
 /* ═══ Адаптация ═══ */
-@media (max-width: 900px) {
-  /* панель уезжает наверх и становится компактной */
-  .j-layout {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    padding-top: 1.25rem;
-  }
-
-  .j-side {
-    position: static;
-    max-height: none;
-    overflow: visible;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.9rem 1rem;
-    padding: 0;
-  }
-
-  .j-side .j-block:first-child { grid-column: 1 / -1; }
-  .j-side .j-label { margin-bottom: 0.3rem; }
-
-  .j-seg { min-width: 12rem; }
-
-  /* архив — строкой, листается вбок */
-  .j-archive { grid-column: 1 / -1; min-width: 0; }
-
-  .j-archive ul {
-    display: flex;
-    gap: 0.35rem;
-    overflow-x: auto;
-    border-left: none;
-    scrollbar-width: none;
-  }
-
-  .j-archive button {
-    padding: 0.2rem 0.55rem;
-    margin: 0;
-    white-space: nowrap;
-    border: 1px solid var(--rule);
-  }
-
-  .j-archive button.on { border-color: var(--amber); }
-  .j-m-full { display: none; }
-  .j-m-short { display: inline; }
-
-  .j-tools {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.6rem 1rem;
-  }
-
-  .j-random { width: auto; padding: 0.35rem 0.8rem; }
-  .j-old { margin: 0 0 0 auto; }
-  .j-keys { display: none; }
-}
-
 @media (max-width: 620px) {
   .j-hero-in { padding-top: 1.6rem; padding-bottom: 1.4rem; }
   .j-hero h1 { font-size: 2rem; }
@@ -743,8 +529,8 @@ kbd {
   .j-stats > div { flex: 1; min-width: 0; padding: 0.4rem 0.7rem; }
   .j-stats dd { font-size: 1.3rem; }
 
-  .j-side { grid-template-columns: 1fr; }
-  .j-seg { min-width: 0; }
+  .j-search { flex-basis: 100%; }
+  .j-old { margin-left: auto; }
 
   /* на телефоне рельс тоньше: дата и время над узлом */
   .j-list { --rail-w: 4rem; }
@@ -758,10 +544,6 @@ kbd {
   .j-tile-text { -webkit-line-clamp: 5; font-size: 0.8rem; }
   .j-tile-cap { padding: 0.45rem 0.6rem 0.55rem; }
   .j-tile-title { font-size: 0.9rem; }
-}
-
-@media (pointer: coarse) {
-  .j-keys { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1479,22 +1479,7 @@ a.ch-time:hover {
   color: var(--amber);
 }
 
-.ver-switch {
-  align-self: center;
-  margin-left: auto;
-  font-size: 0.78rem;
-  color: var(--fg-dim);
-}
 
-.brand-ver {
-  margin-left: 0.5rem;
-  padding: 0 0.35rem;
-  font-size: 0.68rem;
-  font-weight: 500;
-  color: var(--ink) !important;
-  background: var(--amber);
-  vertical-align: 0.1em;
-}
 
 /* ── Альбом: плитка, как в телеграме ── */
 .album {

@@ -13,10 +13,7 @@ export default function Topbar({ current, base = '' }) {
   return (
     <div className="topbar">
       <div className="wrapper">
-        <div className="brand">
-          virus<span>/</span>{current}
-          {base && <span className="brand-ver">{base.slice(1)}</span>}
-        </div>
+        <div className="brand">virus<span>/</span>{current}</div>
         <nav className="topbar-nav">
           {NAV.map(item => (
             <Link

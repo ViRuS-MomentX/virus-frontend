@@ -1,17 +1,24 @@
 /* ═══════════════════════════════════════════
    v2 — «журнал»: вторая версия ленты.
    Та же палитра, шрифты и прямые углы, что у всего сайта,
-   но вместо пузырей мессенджера — плитка записей. Фон только в шапке.
+   но вместо пузырей мессенджера — плитка записей на фоне снимка из шапки.
    ═══════════════════════════════════════════ */
 
 /* ── Шапка ── */
-.j-hero {
-  border-bottom: 1px solid var(--rule);
+/* Фон — тот же снимок, что был в шапке, но на всю страницу и неподвижный:
+   плитка едет поверх него. Шапка своего фона не имеет, чтобы не было двух слоёв. */
+body:has(.journal-page) {
+  background-color: var(--ink);
   background-image:
-    linear-gradient(90deg, rgba(13, 17, 23, 0.97) 35%, rgba(13, 17, 23, 0.8)),
+    linear-gradient(90deg, rgba(13, 17, 23, 0.95) 30%, rgba(13, 17, 23, 0.82)),
     url("/images/interactive-bg.webp");
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
+}
+
+.j-hero {
+  border-bottom: 1px solid var(--rule);
 }
 
 .j-hero-in {
@@ -107,7 +114,7 @@
   color: var(--amber);
 }
 
-/* ── Панель над плиткой: поиск, счётчик, ссылка на старый вид ── */
+/* ── Панель над плиткой: поиск и счётчик ── */
 .j-main {
   padding-top: 1.75rem;
   padding-bottom: 4rem;
@@ -144,11 +151,6 @@
   color: var(--fg-faint);
 }
 
-.j-old {
-  margin-left: auto;
-  font-size: 0.78rem;
-  color: var(--fg-dim);
-}
 
 .j-empty {
   padding: 3rem 0;
@@ -530,7 +532,6 @@
   .j-stats dd { font-size: 1.3rem; }
 
   .j-search { flex-basis: 100%; }
-  .j-old { margin-left: auto; }
 
   /* на телефоне рельс тоньше: дата и время над узлом */
   .j-list { --rail-w: 4rem; }

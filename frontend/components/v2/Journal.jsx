@@ -72,7 +72,6 @@ export default function Journal() {
               ? <>найдено {list.length} {plural(list.length, 'запись', 'записи', 'записей')}</>
               : <>новые сверху</>}
           </span>
-          <Link className="j-old" href="/posts">← старый вид</Link>
         </div>
 
         {list.length === 0 && (

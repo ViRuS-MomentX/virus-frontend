@@ -2,8 +2,11 @@
 // главная и /posts.json.
 //
 // В data/posts-data.js у записи может быть:
-//   image:  "images/кот.jpg"                      — одно фото, как раньше
-//   images: ["images/1.jpg", "images/2.jpg", …]   — альбом
+//   image:  "images/posts/budgie-sherry.jpg"      — одно фото
+//   images: ["images/posts/a.jpg", "images/posts/b.jpg", …]   — альбом
+//
+// Фото постов лежат в public/images/posts/ и называются по содержанию,
+// латиницей через дефис: claude-session-limit-reached.jpg, а не 123.jpg.
 //   id:     "свой-адрес"                          — необязательно
 //
 // Если id не задан, он собирается из даты и времени: 2026-11-06-1840.

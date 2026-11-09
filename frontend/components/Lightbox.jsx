@@ -32,8 +32,11 @@ export default function Lightbox({ open, src: single, caption, onClose, items, i
 
   useEffect(() => {
     if (!open) return;
+    // обработанную клавишу помечаем, чтобы страница под лайтбоксом
+    // не отреагировала на неё ещё раз (на странице поста Esc и стрелки свои)
     const onKey = e => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') { e.preventDefault(); onClose(); return; }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') e.preventDefault();
       if (!many) return;
       if (e.key === 'ArrowRight') onIndex((index + 1) % items.length);
       if (e.key === 'ArrowLeft') onIndex((index - 1 + items.length) % items.length);

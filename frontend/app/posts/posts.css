@@ -11,7 +11,7 @@ body:has(.journal-page) {
   background-color: var(--ink);
   background-image:
     linear-gradient(90deg, rgba(13, 17, 23, 0.95) 30%, rgba(13, 17, 23, 0.82)),
-    url("/images/interactive-bg.webp");
+    url("/images/posts-bg.webp");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -494,6 +494,15 @@ body:has(.journal-page) {
 .j-tile .j-badge { right: 0.5rem; }
 
 /* ── Отдельная запись ── */
+/* по пустому фону можно кликнуть — он уводит обратно в ленту */
+body:has(.j-single) {
+  cursor: pointer;
+}
+
+body:has(.j-single) :is(.j-card, .j-rail, .j-pager, .topbar, .ft, .j-single-nav) {
+  cursor: auto;
+}
+
 .j-single {
   max-width: 52rem;
   padding-top: 1.75rem;
@@ -501,25 +510,136 @@ body:has(.journal-page) {
 }
 
 .j-single-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
   margin-bottom: 1.25rem;
   font-size: 0.82rem;
 }
 
-.j-pager {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--rule-soft);
-  font-size: 0.8rem;
+.j-hint {
+  font-size: 0.72rem;
+  color: var(--fg-faint);
 }
 
-.j-pager a {
-  max-width: 45%;
+/* соседние записи: карточки с превью */
+.j-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.j-nb {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+  padding: 0.55rem;
+  color: var(--fg);
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.j-nb:hover {
+  color: var(--fg);
+  border-color: var(--amber);
+}
+
+.j-nb.is-prev:hover { transform: translateX(-3px); }
+.j-nb.is-next:hover { transform: translateX(3px); }
+
+/* у следующего превью справа, текст выровнен к нему */
+.j-nb.is-next {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.j-nb img,
+.j-nb-blank {
+  flex: none;
+  width: 4.5rem;
+  height: 3.4rem;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+}
+
+.j-nb-blank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+  background: var(--ink);
+}
+
+.j-nb-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.j-nb-dir {
+  font-size: 0.7rem;
+  color: var(--amber);
+}
+
+.j-nb-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: var(--cond);
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.j-nb-meta {
+  font-size: 0.68rem;
+  color: var(--fg-faint);
+}
+
+.j-nb.is-empty {
+  visibility: hidden;
+}
+
+/* большие стрелки по краям экрана */
+.j-arrow {
+  position: fixed;
+  top: 50%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 6rem;
+  margin-top: -3rem;
+  font-family: var(--mono);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--fg-dim);
+  background: rgba(13, 17, 23, 0.6);
+  border: 1px solid var(--rule);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.j-arrow:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+  background: rgba(13, 17, 23, 0.85);
+}
+
+.j-arrow.is-prev { left: max(1rem, calc(50vw - 37rem)); }
+.j-arrow.is-next { right: max(1rem, calc(50vw - 37rem)); }
+
+/* стрелкам не хватает места — убираем, остаются карточки внизу */
+@media (max-width: 1060px) {
+  .j-arrow { display: none; }
 }
 
 /* ═══ Адаптация ═══ */
@@ -548,7 +668,34 @@ body:has(.journal-page) {
   .j-tile-title { font-size: 0.9rem; }
 }
 
+@media (max-width: 620px) {
+  .j-hint { display: none; }
+
+  .j-pager {
+    position: sticky;
+    bottom: 0;
+    z-index: 15;
+    margin: 1.5rem calc(-1 * var(--gutter)) 0;
+    padding: 0.5rem var(--gutter) calc(0.5rem + env(safe-area-inset-bottom));
+    gap: 0.5rem;
+    background: rgba(13, 17, 23, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid var(--rule);
+  }
+
+  .j-nb { padding: 0.35rem; gap: 0.5rem; }
+  .j-nb img, .j-nb-blank { width: 2.8rem; height: 2.8rem; }
+  .j-nb-title { font-size: 0.85rem; }
+  .j-nb-meta { display: none; }
+}
+
+@media (pointer: coarse) {
+  .j-hint { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .j-prompt::after { animation: none; }
   .j-tile:hover { transform: none; }
+  .j-nb:hover { transform: none; }
 }

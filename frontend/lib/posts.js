@@ -1,4 +1,4 @@
-// Посты в одном виде для всех страниц: лента v1, лента v2, страница поста,
+// Посты в одном виде для всех страниц: лента, страница поста,
 // главная и /posts.json.
 //
 // В data/posts-data.js у записи может быть:
@@ -49,9 +49,9 @@ export const findPost = id => allPosts.find(p => p.id === id);
 export const TAGS = { personal: 'личное', game: 'игра', ai: 'нейронки' };
 
 // адрес отдельной страницы поста и якорь поста внутри ленты
-export const postPath = (id, base = '') => `${base}/posts/${id}`;
+export const postPath = id => `/posts/${id}`;
 export const anchorId = id => `post-${id}`;
-export const feedPath = (id, base = '') => `${base}/posts#${anchorId(id)}`;
+export const feedPath = id => `/posts#${anchorId(id)}`;
 
 export const ruDate = d => d.split('-').reverse().join('.');
 

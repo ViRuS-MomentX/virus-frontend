@@ -1,5 +1,4 @@
-// Вкладка «проекты». Вынесена в компонент, чтобы её же показывала
-// вторая версия сайта (/v2) — вид тот же, меняются только ссылки вкладок.
+// Вкладка «проекты».
 
 import Topbar from '../Topbar';
 import Footer from '../Footer';
@@ -7,12 +6,12 @@ import ProjectCard from './ProjectCard';
 import { projects } from '../../data/projects-data';
 import { plural } from '../../lib/text';
 
-export default function Projects({ base = '' }) {
+export default function Projects() {
   const n = projects.length;
 
   return (
     <div className="page projects-page">
-      <Topbar current="projects" base={base} />
+      <Topbar current="projects" />
 
       <div className="page-head">
         <div className="wrapper page-head-top">

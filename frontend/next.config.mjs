@@ -10,6 +10,9 @@ const nextConfig = {
       // если галерея когда-нибудь вернётся
       { source: '/gallery.html', destination: '/posts', permanent: false },
       { source: '/gallery', destination: '/posts', permanent: false },
+      // вторая версия стала основной — её адреса ведут на обычные
+      { source: '/v2', destination: '/', permanent: true },
+      { source: '/v2/:path*', destination: '/:path*', permanent: true },
       { source: '/projects.html', destination: '/projects', permanent: true },
       { source: '/posts.html', destination: '/posts', permanent: true },
       { source: '/admin.html', destination: '/admin', permanent: true },

@@ -5,7 +5,7 @@ import { allPosts, findPost, ruDate, summary } from './posts';
 
 export const postParams = () => allPosts.map(p => ({ id: p.id }));
 
-export function postMetadata(id, { noindex = false } = {}) {
+export function postMetadata(id) {
   const p = findPost(id);
   if (!p) return {};
   const title = (p.title || `Запись от ${ruDate(p.date)}`) + ' — Вирус';
@@ -16,6 +16,5 @@ export function postMetadata(id, { noindex = false } = {}) {
     description,
     openGraph: { title, description, type: 'article', images, siteName: 'Вирус' },
     twitter: { card: images ? 'summary_large_image' : 'summary', title, description },
-    ...(noindex ? { robots: { index: false, follow: false } } : {}),
   };
 }

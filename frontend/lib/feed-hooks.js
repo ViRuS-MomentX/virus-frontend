@@ -67,7 +67,7 @@ async function copy(text) {
   }
 }
 
-export function useShare(base = '') {
+export function useShare() {
   // id поста, по которому только что поделились, и чем всё кончилось
   const [state, setState] = useState({ id: null, result: null });
   const timer = useRef(null);
@@ -75,7 +75,7 @@ export function useShare(base = '') {
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const share = useCallback(async post => {
-    const url = location.origin + postPath(post.id, base);
+    const url = location.origin + postPath(post.id);
     let result = 'failed';
 
     const touch = matchMedia('(pointer: coarse)').matches;
@@ -92,7 +92,7 @@ export function useShare(base = '') {
     setState({ id: post.id, result });
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setState({ id: null, result: null }), 2200);
-  }, [base]);
+  }, []);
 
   return [state, share];
 }

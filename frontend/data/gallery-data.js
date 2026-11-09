@@ -115,7 +115,7 @@ export const galleryData = [
   { name: 'images/контакт.webp', comment: 'Словил зрительный контакт с женщиной', game: 'phasmo' },
   { name: 'images/уайт.jpg', comment: 'Уолтер уже не тот', game: 'phasmo' },
   { name: 'images/кушать.jpg', comment: 'Они насрали мне на клавиатуру, теперь я их съем', game: 'irl' },
-  { name: 'images/стрип.jpg', comment: 'Занесло, эх, занесло куда-то', game: 'phasmo' },
+  { name: 'images/posts/dark-night-club.jpg', comment: 'Занесло, эх, занесло куда-то', game: 'phasmo' },
   { name: 'images/нейрослоп.jpg', comment: 'Нейрослоп', game: 'phasmo' },
   { name: 'images/бездари.jpg', comment: 'Дипломатические переговоры', game: 'all' },
   { name: 'images/фоточки.webp', comment: 'Сварщик, вайбкодер, рандомный чувак и негр вычисляют Юрэя', game: 'phasmo' },

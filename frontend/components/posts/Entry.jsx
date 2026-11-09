@@ -1,5 +1,5 @@
-// Одна запись журнала (вторая версия ленты): слева «рельс» с датой,
-// временем и узлом на линии, справа карточка.
+// Запись на своей странице: слева «рельс» с датой и временем,
+// справа карточка с фото, текстом и кнопкой «поделиться».
 
 import Link from 'next/link';
 import Album from '../posts/Album';
@@ -9,14 +9,14 @@ import { TAGS, anchorId, postPath, feedPath } from '../../lib/posts';
 
 const short = d => d.slice(8, 10) + '.' + d.slice(5, 7);
 
-export default function Entry({ post, num, base, query = '', isNew, isTarget, shared, onShare, onOpen, single }) {
+export default function Entry({ post, num, query = '', isNew, isTarget, shared, onShare, onOpen, single }) {
   const p = post;
   const cls = ['j-entry', isNew && 'is-new', isTarget && 'is-target'].filter(Boolean).join(' ');
 
   return (
     <article className={cls} id={anchorId(p.id)}>
       <div className="j-rail">
-        <a className="j-date" href={single ? feedPath(p.id, base) : '#' + anchorId(p.id)} title="Ссылка на запись">
+        <a className="j-date" href={single ? feedPath(p.id) : '#' + anchorId(p.id)} title="Ссылка на запись">
           {short(p.date)}
         </a>
         <span className="j-time">{p.time}</span>
@@ -41,7 +41,7 @@ export default function Entry({ post, num, base, query = '', isNew, isTarget, sh
           <button type="button" className="j-btn" onClick={() => onShare(p)}>
             {shared === 'copied' ? '✓ скопировано' : shared === 'failed' ? 'не вышло' : '↗ поделиться'}
           </button>
-          {!single && <Link className="j-btn" href={postPath(p.id, base)}>открыть</Link>}
+          {!single && <Link className="j-btn" href={postPath(p.id)}>открыть</Link>}
         </footer>
       </div>
     </article>

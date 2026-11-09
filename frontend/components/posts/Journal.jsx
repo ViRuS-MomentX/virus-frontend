@@ -1,16 +1,14 @@
 'use client';
 
-// Вторая версия ленты — «журнал»: все записи плиткой, сверху поиск.
+// Вкладка «посты»: все записи плиткой, сверху поиск.
 // Плитка ведёт на отдельную страницу записи. Новые с прошлого визита
-// помечены, к записи можно прийти по ссылке /v2/posts#post-<id>.
+// помечены, к записи можно прийти по ссылке /posts#post-<id>.
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { sortedPosts, newestStamp, anchorId, postPath } from '../../lib/posts';
 import { useNewSince, isNewPost, useHashTarget } from '../../lib/feed-hooks';
 import { Highlight, plural } from '../../lib/text';
-
-const BASE = '/v2';
 
 const norm = str => (str || '').toLowerCase().trim();
 
@@ -44,7 +42,7 @@ export default function Journal() {
             <img className="j-ava" src="/images/филя.webp" alt="" width={64} height={64} decoding="async" />
             <div>
               <div className="j-prompt">virus@feed:~$ tail -f заметки</div>
-              <h1>Интерактив</h1>
+              <h1>Посты</h1>
               <p>Новости страницы, мысли и чэнджлоги — по порядку, с самого первого поста.</p>
             </div>
           </div>
@@ -83,7 +81,7 @@ export default function Journal() {
             const isNew = isNewPost(p, since);
             const cls = ['j-tile', isNew && 'is-new', target === p.id && 'is-target'].filter(Boolean).join(' ');
             return (
-              <Link key={p.id} id={anchorId(p.id)} className={cls} href={postPath(p.id, BASE)}>
+              <Link key={p.id} id={anchorId(p.id)} className={cls} href={postPath(p.id)}>
                 {p.images[0]
                   // eslint-disable-next-line @next/next/no-img-element
                   ? <img src={p.images[0]} alt="" loading="lazy" decoding="async" />

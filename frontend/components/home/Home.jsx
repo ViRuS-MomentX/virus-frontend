@@ -1,7 +1,4 @@
 import Link from 'next/link';
-// Главная. Вынесена в компонент, чтобы её же показывала вторая версия
-// сайта (/v2): вид тот же, только ссылки ведут внутрь /v2.
-
 import Topbar from '../Topbar';
 import Footer from '../Footer';
 import Quote from './Quote';
@@ -34,14 +31,14 @@ const SOCIALS = [
   },
 ];
 
-export default function Home({ base = '' }) {
+export default function Home() {
   const latest = sortedPosts.slice(0, 3);
 
   const n = projects.length;
 
   return (
     <>
-      <Topbar current="main" base={base} />
+      <Topbar current="main" />
 
       <section className="hero">
         <div className="hero-bg" aria-hidden="true">
@@ -76,12 +73,12 @@ export default function Home({ base = '' }) {
         <section className="summary" aria-label="Сводка по сайту">
           <h2 className="panel-title">сводка</h2>
 
-          <Link className="summary-row" href={base + '/posts'}>
+          <Link className="summary-row" href="/posts">
             <span className="summary-num">{sortedPosts.length}</span>
             <span className="summary-key">посты</span>
           </Link>
 
-          <Link className="summary-row" href={base + '/projects'}>
+          <Link className="summary-row" href="/projects">
             <span className="summary-num">{n}</span>
             <span className="summary-key">{plural(n, 'проект', 'проекта', 'проектов')}</span>
           </Link>
@@ -107,12 +104,12 @@ export default function Home({ base = '' }) {
           </p>
 
           <div className="about-list">
-            <Link className="about-item" href={base + '/projects'}>
+            <Link className="about-item" href="/projects">
               <span className="about-item-name">Проекты</span>
               <span className="about-item-note">Бот от дипсика, бот от фанстат и участник нн сервера</span>
             </Link>
-            <Link className="about-item" href={base + '/posts'}>
-              <span className="about-item-name">Интерактив</span>
+            <Link className="about-item" href="/posts">
+              <span className="about-item-name">Посты</span>
               <span className="about-item-note">лента заметок: грязь, грязище, дипсик</span>
             </Link>
           </div>
@@ -141,7 +138,7 @@ export default function Home({ base = '' }) {
             <h2 className="panel-title">последние посты</h2>
             <div>
               {latest.map(p => (
-                <Link key={p.id} className="post-mini" href={feedPath(p.id, base)}>
+                <Link key={p.id} className="post-mini" href={feedPath(p.id)}>
                   {p.images[0]
                     // eslint-disable-next-line @next/next/no-img-element
                     ? <img className="post-mini-thumb" src={p.images[0]} alt="" loading="lazy" decoding="async" />
@@ -154,7 +151,7 @@ export default function Home({ base = '' }) {
                 </Link>
               ))}
             </div>
-            <Link className="panel-more" href={base + '/posts'}>все посты</Link>
+            <Link className="panel-more" href="/posts">все посты</Link>
           </section>
 
         </aside>

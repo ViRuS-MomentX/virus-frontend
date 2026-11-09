@@ -4,7 +4,7 @@
 
 const SHOWN = 4;
 
-export default function Album({ images, alt, onOpen, className = 'ch-photo' }) {
+export default function Album({ images, alt, onOpen, className = 'j-media' }) {
   if (!images.length) return null;
 
   if (images.length === 1) {

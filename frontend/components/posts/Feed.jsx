@@ -1,7 +1,6 @@
 'use client';
 
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
 import Lightbox from '../Lightbox';
 import Message from './Message';
 import { sortedPosts, newestStamp } from '../../lib/posts';
@@ -94,7 +93,6 @@ export default function Feed() {
                     value={rawQuery}
                     onChange={e => setRawQuery(e.target.value)}
                   />
-                  <Link className="ver-switch" href="/v2/posts">новый вид →</Link>
                 </div>
               </div>
             </div>

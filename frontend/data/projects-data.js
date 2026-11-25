@@ -18,9 +18,9 @@ export const projects = [
       'Небо, огонь и земля или ночь, бездна и технологии?',
     ],
     video: {
-      src: 'videos/virusswords-trailer.mp4',
-      poster: 'images/virusswords-trailer.webp',
-      label: 'Трейлер: боссы VirusSwords',
+      src: 'videos/virusswords-trailer-2.mp4',
+      poster: 'images/posts/virusswords-trailer-title-card.webp',
+      label: 'Трейлер: Найди. Выкуй. Пробуди.',
     },
     note: 'Имеется своя википедия.',
     links: [{ label: 'вики плагина', href: 'https://virus-momentx.github.io/wiki-virus-swords/' }],
